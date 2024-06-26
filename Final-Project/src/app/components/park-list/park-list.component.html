@@ -1,1 +1,9 @@
-<p>park-list works!</p>
+<h2>Park Data</h2>
+
+<div *ngIf="parkResponse">
+    <div *ngFor="let park of parkResponse.data">
+        <p>park.name</p>
+        <p>park.description</p>
+    </div>
+
+</div>

@@ -1,4 +1,7 @@
-<h2>Park Data</h2>
+<h2>Find a Park</h2>
+
+<input type="text" [(ngModel)]="query" placeholder="Search for parks">
+<button (click)="searchParks()">Search</button>
 
 <div *ngIf="parkResponse">
     <div *ngFor="let park of parkResponse.data">
@@ -10,3 +13,14 @@
 <div *ngIf="error">
     <p>{{error}}</p>
 </div>
+
+
+<!--<div *ngIf="parkResponse">
+    <div *ngFor="let park of parkResponse.data">
+        <p>{{park.name}}</p>
+        <p>{{park.description}}</p>
+    </div>
+    <div *ngIf="error == ''">
+        <p>{{error}}</p>
+    </div>
+</div>-->

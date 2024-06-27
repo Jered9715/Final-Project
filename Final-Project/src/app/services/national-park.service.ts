@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient , HttpHeaders } from '@angular/common/http';
+import { HttpClient , HttpHeaders , HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ParkResponse } from '../interfaces/park';
 
@@ -7,7 +7,7 @@ import { ParkResponse } from '../interfaces/park';
   providedIn: 'root'
 })
 export class NationalParkService {
-  private apiUrl = 'developer.nps.gov/api/v1';
+  private apiUrl = 'https://developer.nps.gov/api/v1';
   private apiKey = 'r4OSxniaCtevFyb5dCkZc0z0D8bSQLsTRdfK7o9L';
 
   constructor(private http: HttpClient) { }
@@ -17,6 +17,15 @@ export class NationalParkService {
       'X-Api-Key': this.apiKey
     });
     return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, {headers: headers});
+  }
+
+  getParksBySearch(query: string): Observable<ParkResponse> {
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.apiKey
+    });
+    let params = new HttpParams();
+    params = params.append('q', query);
+    return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, {headers: headers, params: params});
   }
 }
 

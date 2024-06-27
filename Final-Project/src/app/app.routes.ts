@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ParkListComponent } from './components/park-list/park-list.component';
 import { MapsComponent } from './components/maps/maps.component';
 import { importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';

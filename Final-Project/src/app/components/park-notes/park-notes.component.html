@@ -1,0 +1,8 @@
+<form #parkNotesForm="ngForm" (ngSubmit)="saveParkNotes()">
+  <div class="form-group">
+    <label for="title">Park Notes</label>
+  <div class="form-group">
+    <textarea class="form-control" id="parkNotesForm" name="parkNotesForm" [(ngModel)]="parkNote.content" rows="12" cols="70" placeholder="Enter any notes, reviews, or previous experiences here"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="parkNotesForm.invalid">Save</button>
+</form>

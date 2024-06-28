@@ -54,6 +54,8 @@ export class ParkListComponent implements OnInit {
         if (this.filteredParks.length === 0) {
           this.error = `There are no National Parks that match your search of ${this.query}`
         }
+        console.log("park data")
+        console.log(this.filteredParks[0])
       },
       (error) => {
         console.error('Error fetching data by search', error);

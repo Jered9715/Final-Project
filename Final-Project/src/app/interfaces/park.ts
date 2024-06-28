@@ -43,7 +43,7 @@ export interface Park {
             title: string;
             url: string;
             altText: string;
-        };
+        }[];
     operatingHours: {
         name: string;
         standardHours: {

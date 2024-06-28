@@ -19,12 +19,15 @@ export class NationalParkService {
     return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, {headers: headers});
   }
 
-  getParksBySearch(query: string): Observable<ParkResponse> {
+  getParksBySearch(query: string, sort: string): Observable<ParkResponse> {
     const headers = new HttpHeaders({
       'X-Api-Key': this.apiKey
     });
     let params = new HttpParams();
-    params = params.append('q', query);
+    params = params.set('q', query);
+    if (sort) {
+      params = params.set('sort', sort);
+    }
     return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, {headers: headers, params: params});
   }
 }

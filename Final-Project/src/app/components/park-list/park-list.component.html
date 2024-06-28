@@ -1,12 +1,17 @@
-<h2>Find a Park</h2>
+<h1>Build Your National Park Passport</h1>
+
+<h2>Start Exploring Today</h2>
 
 <input type="text" [(ngModel)]="query" placeholder="Search for parks">
 <button (click)="searchParks()">Search</button>
 
-<div *ngIf="parkResponse">
-    <div *ngFor="let park of parkResponse.data">
-        <p>{{park.name}}</p>
-        <p>{{park.description}}</p>
+<div *ngIf="filteredParks.length > 0">
+    <div *ngFor="let park of filteredParks">
+        <a [routerLink]="['/park-details', park.id]">
+            <p>{{park.name}}</p>
+        </a>
+        <p>{{park.addresses[0].city}}, {{park.addresses[0].stateCode}}</p>
+        <img class="park-image" [src]="park.images[0].url" [alt]="park.images[0].altText">
     </div>
 </div>
 

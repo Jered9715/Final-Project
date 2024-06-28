@@ -16,13 +16,15 @@ import { ParkResponse, Park } from '../../interfaces/park';
 })
 export class ParkListComponent implements OnInit {
   parkResponse: ParkResponse | null = null;
+  filteredParks: Park[] = [];
   error: string = '';
   query: string = '';
+  sort: string = 'relevanceScore';
 
   constructor(private nationalParkService: NationalParkService) {}
 
   ngOnInit(): void {
-    this.getParks();
+    //this.getParks();
   }
 
   getParks(): void {
@@ -44,16 +46,26 @@ export class ParkListComponent implements OnInit {
       return;
     }
 
-    this.nationalParkService.getParksBySearch(this.query).subscribe(
+    this.nationalParkService.getParksBySearch(this.query, this.sort).subscribe(
       (data: ParkResponse) => {
         this.parkResponse = data;
         this.error = '';
+        this.filterParks();
+        if (this.filteredParks.length === 0) {
+          this.error = `There are no National Parks that match your search of ${this.query}`
+        }
       },
       (error) => {
         console.error('Error fetching data by search', error);
         this.error = 'Failed to fetch data. Please try again later';
       }
     );
+  }
+
+  filterParks(): void {
+    if (this.parkResponse) {
+      this.filteredParks = this.parkResponse.data.filter(park => park.designation == 'National Park');
+    }
   }
 
 }

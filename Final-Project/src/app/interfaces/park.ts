@@ -7,12 +7,13 @@ export interface Park {
     id: string;
     name: string;
     description: string;
+    designation: string;
     location: string;
-    activities: [{
+    activities: {
         id: string;
         name: string;
-    }];
-    addresses: [
+    }[];
+    addresses:
         {
             line1: string;
             line2: string;
@@ -23,31 +24,29 @@ export interface Park {
             provinceTerritoryCode: string;
             postalCode: string;
             type: string;
-        }
-    ];
+        }[];
     directionsInfo: string;
     directionsUrl: string;
-    entranceFees: [{
+    entranceFees: {
         cost: number;
         description: string;
         title: string;
-    }];
-    entrancePasses: [
+    }[];
+    entrancePasses: 
         {
             cost: number;
             description: string;
             title: string;
-        }
-    ];
-    images: [
+        }[];
+    images: 
         {
             title: string;
             url: string;
-        }
-    ];
-    operatingHours: [{
+            altText: string;
+        };
+    operatingHours: {
         name: string;
-        standardHours: [{
+        standardHours: {
             sunday: string;
             monday: string;
             tuesday: string;
@@ -55,12 +54,12 @@ export interface Park {
             thursday: string;
             friday: string;
             saturday: string;
-        }],
-        exceptions: [{
+        }[],
+        exceptions: {
             name: string;
             startDate: string;
             endDate: string;
-            exceptionHours: [{
+            exceptionHours: {
                 sunday: string;
                 monday: string;
                 tuesday: string;
@@ -68,9 +67,9 @@ export interface Park {
                 thursday: string;
                 friday: string;
                 saturday: string;
-            }],
+            }[],
             description: string;
-        }];
+        }[];
         weatherInfo: string;
-    }]
+    }[];
 }

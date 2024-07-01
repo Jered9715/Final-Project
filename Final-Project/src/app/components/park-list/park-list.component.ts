@@ -1,18 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy,Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NationalParkService } from '../../services/national-park.service';
 import { ParkResponse, Park } from '../../interfaces/park';
-
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSidenavModule} from '@angular/material/sidenav';
 @Component({
   selector: 'app-park-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule],
+  imports: [CommonModule, FormsModule, HttpClientModule, RouterModule,MatCardModule,MatButtonModule,
+    MatGridListModule,MatToolbarModule,MatIconModule,MatFormFieldModule,MatInputModule,MatSidenavModule],
   providers: [NationalParkService],
   templateUrl: './park-list.component.html',
-  styleUrl: './park-list.component.css'
+  styleUrl: './park-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ParkListComponent implements OnInit {
   parkResponse: ParkResponse | null = null;
@@ -20,7 +29,7 @@ export class ParkListComponent implements OnInit {
   error: string = '';
   query: string = '';
   sort: string = 'relevanceScore';
-
+  showFiller = false;
   constructor(private nationalParkService: NationalParkService) {}
 
   ngOnInit(): void {

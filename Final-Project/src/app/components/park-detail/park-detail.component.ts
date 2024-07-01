@@ -13,7 +13,7 @@ import { ParkResponse, Park } from '../../interfaces/park';
   imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, MapsComponent],
   providers: [NationalParkService],
   templateUrl: './park-detail.component.html',
-  styleUrl: './park-detail.component.css'
+  styleUrl: './park-detail.component.scss'
 })
 export class ParkDetailComponent {
 

@@ -7,7 +7,7 @@ import { CommonModule, NgFor } from '@angular/common';
   standalone: true,
   imports: [CommonModule,NgFor],
   templateUrl: './wishlist.component.html',
-  styleUrl: './wishlist.component.css'
+  styleUrl: './wishlist.component.scss'
 })
 export class WishlistComponent implements OnInit{
 wishList: WishListItem[]=[];

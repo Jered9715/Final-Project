@@ -1,4 +1,5 @@
 <!-- Top bar logo and navigation, thinking of placing this in the app.component instead as this will be needed always for nav-->
+<div>
 <mat-toolbar>
     <!--start of side nav  currently not fully working-->
     <mat-drawer-container class="example-container" autosize>
@@ -38,23 +39,24 @@
 </mat-toolbar>
 
 
-<h2>Start Exploring Today</h2>
+
 <!-- new search form -->
-<div>
-    <p>
-        <mat-form-field appearance="outline">
+<mat-card class="search-card">
+    <mat-card-header>
+        <h2>Start Exploring Today</h2>
+    </mat-card-header>
+        <mat-form-field appearance="outline" cla>
             <mat-label>Search for a park</mat-label>
             <input type="text" [(ngModel)]="query" matInput placeholder="State or Name">
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
             <mat-hint>Hint</mat-hint>
         </mat-form-field>
-    </p>
+    
 
     <!-- new search button -->
-    <div class="example-button-row">
+    <div class="search-button">
         <button mat-raised-button color="accent" (click)="searchParks()">Search</button>
     </div>
-</div>
+</mat-card>
 
 <!-- old search input--
 <input type="text" [(ngModel)]="query" placeholder="Search for parks">

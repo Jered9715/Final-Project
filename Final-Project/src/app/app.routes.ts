@@ -8,7 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { bootstrapApplication } from '@angular/platform-browser';
 
 export const routes: Routes = [
-    {path: '', redirectTo: '/park-list', pathMatch: 'full'}
+    {path: '', redirectTo: '/park-list', pathMatch: 'full'},
+    {path: '', redirectTo: '/park-details', pathMatch: 'full'}
 ];
 
 bootstrapApplication(AppComponent, {

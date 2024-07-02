@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { ParkListComponent } from './components/park-list/park-list.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
+import { ParkDetailComponent } from './components/park-detail/park-detail.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,ParkListComponent,MatToolbarModule,MatIconModule],
+  imports: [RouterOutlet,ParkListComponent,MatToolbarModule,MatIconModule, ParkDetailComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

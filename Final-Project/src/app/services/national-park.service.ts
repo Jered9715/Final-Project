@@ -30,5 +30,15 @@ export class NationalParkService {
     }
     return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, {headers: headers, params: params});
   }
+
+  getParkByParkCode(parkCode: string): Observable<ParkResponse> {
+    const headers = new HttpHeaders({
+      'X-Api-Key': this.apiKey
+    });
+    let params = new HttpParams();
+    params = params.set('parkCode', parkCode);
+    return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, {headers: headers, params: params});
+  }
+
 }
 

@@ -77,7 +77,7 @@
                         </mat-card-header>
                         <img mat-card-image [src]="park.images[0].url" [alt]="park.images[0].altText">
                         <mat-card-actions>
-                            <button mat-button>DETAILS</button>
+                            <button mat-button [routerLink]="['/park-detail', park.parkCode]">DETAILS</button>
                             <button mat-button>WISHLIST</button>
                         </mat-card-actions>
                         <mat-card-footer></mat-card-footer>

@@ -6,10 +6,12 @@ import { provideRouter } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { bootstrapApplication } from '@angular/platform-browser';
+import { ParkDetailComponent } from './components/park-detail/park-detail.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/park-list', pathMatch: 'full'},
-    {path: '', redirectTo: '/park-details', pathMatch: 'full'}
+    {path: 'park-list', component: ParkListComponent},
+    {path: 'park-detail/:parkCode', component: ParkDetailComponent}
 ];
 
 bootstrapApplication(AppComponent, {

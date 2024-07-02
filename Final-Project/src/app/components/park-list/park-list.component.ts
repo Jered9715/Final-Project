@@ -33,7 +33,7 @@ export class ParkListComponent implements OnInit {
   constructor(private nationalParkService: NationalParkService) {}
 
   ngOnInit(): void {
-    //this.getParks();
+    
   }
 
   getParks(): void {

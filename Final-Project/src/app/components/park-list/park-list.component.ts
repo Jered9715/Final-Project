@@ -75,7 +75,7 @@ export class ParkListComponent implements OnInit {
 
   filterParks(): void {
     if (this.parkResponse) {
-      this.filteredParks = this.parkResponse.data.filter(park => park.designation == 'National Park');
+      this.filteredParks = this.parkResponse.data.filter(park => park.designation === 'National Park');
     }
   }
 

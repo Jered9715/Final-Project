@@ -31,22 +31,18 @@ align-items:center;
 
 
 //for cards
-.example-card {
-  max-width: 400px;
+.container{
+  padding: 24px;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
+.park-image {
+  width:100%;
+  height: 200px;
+  object-fit: cover;
 }
 
-.example-card {
-  max-width: 400px;
-  max-height: 200px;
-}
-
-
-//for grid
-mat-grid-tile {
-  background: lightblue;
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+  gap: 24px;
 }

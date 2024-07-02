@@ -79,4 +79,21 @@ export class ParkListComponent implements OnInit {
     }
   }
 
+
+
+
+
+
+  
+  /* this could be used if we wanted a auto fill feature - if determined not wanted we can delete, 
+  to do this we would need to create a localy stored array in the angular file that would hold all the names of the national parks
+  then you could set the filtered cards to the array of national park names and it would autofill
+
+  see note from cass for the html if wanted
+
+  filterCards(event: Event) {
+     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase(); 
+     this.filteredCards = this.cards.filter(card => card.content.toLowerCase().includes(searchTerm) ); }
+  */
+
 }

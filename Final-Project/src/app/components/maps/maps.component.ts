@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-maps',
@@ -8,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrl: './maps.component.scss'
 })
 export class MapsComponent {
-
+  @Input() item:latLong | undefined; // decorate the property with @Input()
+  ngOnInit(): void {
+    console.log(this.item)
+  }
+}
+class latLong {
+  lat: number | undefined;
+  long: number | undefined;
 }

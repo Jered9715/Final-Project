@@ -36,6 +36,7 @@ export class ParkDetailComponent implements OnInit {
     ).subscribe({
       next: (data: ParkResponse) => {
         this.parkResponse = data;
+        //console.log(this.parkResponse.data[0].latLong)
         this.error = '';
         this.park = this.parkResponse.data[0];
       },

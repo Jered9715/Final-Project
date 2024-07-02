@@ -4,7 +4,8 @@
         <p>{{park.name}}</p>
         <p>{{park.description}}</p>
 
-
+        <app-maps [item]="parkResponse.data[0].latLong">
+        </app-maps>
         <div *ngIf="park.operatingHours && park.operatingHours.length > 0">
             <div *ngFor="let hours of park.operatingHours">
                 <h3>Park Hours</h3>

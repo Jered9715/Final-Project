@@ -1,7 +1,46 @@
 <div *ngIf="parkResponse">
     <div *ngIf="park">
+        <h3>Park Description</h3>
         <p>{{park.name}}</p>
+        <p>{{park.description}}</p>
+
+
+        <div *ngIf="park.operatingHours && park.operatingHours.length > 0">
+            <div *ngFor="let hours of park.operatingHours">
+                <h3>Park Hours</h3>
+                <p><strong>Standard Hours</strong></p>
+                <ul>
+                    <li>Sunday: {{hours.standardHours.sunday}}</li>
+                    <li>Monday: {{hours.standardHours.monday}}</li>
+                    <li>Tuesday: {{hours.standardHours.tuesday}}</li>
+                    <li>Wednesday: {{hours.standardHours.wednesday}}</li>
+                    <li>Thursday: {{hours.standardHours.thursday}}</li>
+                    <li>Friday: {{hours.standardHours.friday}}</li>
+                    <li>Saturday: {{hours.standardHours.saturday}}</li>
+                </ul>
+
+                <p *ngIf="hours.exceptions && hours.exceptions.length > 0">
+                <p><strong>Exceptions to Standard Hours</strong></p>
+                <div *ngFor="let exception of hours.exceptions">
+                    <p><strong>Start Date:</strong> {{exception.startDate}}</p>
+                    <p><strong>End Date:</strong> {{exception.endDate}}</p>
+                    <ul>
+                        <li>Sunday: {{exception.exceptionHours.sunday}}</li>
+                        <li>Monday: {{exception.exceptionHours.monday}}</li>
+                        <li>Tuesday: {{exception.exceptionHours.tuesday}}</li>
+                        <li>Wednesday: {{exception.exceptionHours.wednesday}}</li>
+                        <li>Thursday: {{exception.exceptionHours.thursday}}</li>
+                        <li>Friday: {{exception.exceptionHours.friday}}</li>
+                        <li>Saturday: {{exception.exceptionHours.saturday}}</li>
+                    </ul>
+                    <p>{{exception.description}}</p>
+                </div>
+                <p>{{hours.weatherInfo}}</p>
+            </div>
+        </div>
     </div>
 </div>
+
+
 
 <p *ngIf="error">{{error}}</p>

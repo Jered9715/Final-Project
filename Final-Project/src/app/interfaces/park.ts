@@ -59,7 +59,7 @@ export interface Park {
             thursday: string;
             friday: string;
             saturday: string;
-        }[],
+        },
         exceptions: {
             name: string;
             startDate: string;
@@ -72,7 +72,7 @@ export interface Park {
                 thursday: string;
                 friday: string;
                 saturday: string;
-            }[],
+            },
             description: string;
         }[];
         weatherInfo: string;

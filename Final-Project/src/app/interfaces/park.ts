@@ -5,10 +5,15 @@ export interface ParkResponse {
 
 export interface Park {
     id: string;
+    parkCode: string;
     name: string;
     description: string;
     designation: string;
     location: string;
+    latLong: {
+        lat: number;
+        long: number;
+    };
     activities: {
         id: string;
         name: string;

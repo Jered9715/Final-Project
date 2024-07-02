@@ -1,1 +1,7 @@
-<app-maps></app-maps>
+<div *ngIf="parkResponse">
+    <div *ngIf="park">
+        <p>{{park.name}}</p>
+    </div>
+</div>
+
+<p *ngIf="error">{{error}}</p>

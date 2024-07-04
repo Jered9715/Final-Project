@@ -1,7 +1,7 @@
 <div *ngIf="parkResponse">
     <div *ngIf="park">
+        <h1>{{park.name}}</h1>
         <h3>Park Description</h3>
-        <p>{{park.name}}</p>
         <p>{{park.description}}</p>
 
         <app-maps [mapImageUrl]="mapUrl"></app-maps>      

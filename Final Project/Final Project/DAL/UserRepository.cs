@@ -62,7 +62,7 @@ namespace Final_Project.DAL
             await _context.SaveChangesAsync();
             return true;
         }
-        public async Task<bool> DeletUserAsync(int id)
+        public async Task<bool> DeleteUserAsync(int id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)

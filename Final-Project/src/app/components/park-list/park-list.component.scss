@@ -20,7 +20,12 @@
 
 //for search card
 .search-card {
-align-items:center;
+margin-top: 50px;
+margin-bottom: 25px;
+margin-left: 50px;
+margin-right: 50px;
+
+
 }
 
 
@@ -31,9 +36,7 @@ align-items:center;
 
 
 //for cards
-.container{
-  padding: 24px;
-}
+
 
 .park-image {
   width:100%;
@@ -41,8 +44,9 @@ align-items:center;
   object-fit: cover;
 }
 
-.responsive-grid {
+.park-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+  grid-template-columns: auto auto auto;
+  justify-content: space-evenly;
   gap: 24px;
 }

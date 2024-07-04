@@ -1,10 +1,31 @@
-<form #parkNotesForm="ngForm" (ngSubmit)="saveParkNotes()">
-  
-  
-  <div class="form-group">
-    <label for="title">Park Notes</label>
-  <div class="form-group">
-    <textarea class="form-control" id="parkNotesForm" name="parkNotesForm" [(ngModel)]="parkNote.content" rows="12" cols="70" placeholder="Enter any notes, reviews, or previous experiences here"></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary" [disabled]="parkNotesForm.invalid">Save</button>
-</form>
+
+<!-- pop up that will allow for the transfer of data to the needed sections-->
+<mat-card>
+    <mat-card-content>
+        
+        <h1>Tell Us About Your Visit!</h1>
+        <form class="example-form">
+            
+            <!-- Date picker -->
+            <mat-form-field>
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            
+            <!-- text input-->
+            <mat-form-field class="example-full-width">
+                <mat-label>Leave a comment</mat-label>
+                <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+            </mat-form-field>
+
+            <!-- -->
+            <div class="example-button-row">
+                <button mat-flat-button color="accent">Submit</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
+

@@ -14,7 +14,7 @@ export const routes: Routes = [
     {path: '', redirectTo: '/park-list', pathMatch: 'full'},
     {path: 'park-list', component: ParkListComponent},
     {path: 'park-detail/:parkCode', component: ParkDetailComponent},
-    {path: 'park-notes', component: ParkNotesComponent}
+    {path: 'park-notes', component: ParkNotesComponent},
     {path: 'park-visit-history/:userId', component: ParkVisitHistoryComponent}
 ];
 

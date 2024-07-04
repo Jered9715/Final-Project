@@ -14,6 +14,8 @@ export interface Park {
         lat: number;
         long: number;
     };
+    latitude: string;
+    longitude: string;
     activities: {
         id: string;
         name: string;

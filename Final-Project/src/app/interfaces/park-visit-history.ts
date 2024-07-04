@@ -1,6 +1,7 @@
-export interface parkvisithistory{
-    userId: number;
+export interface ParkVisitHistory{
     parkVisitId: number;
+    userId: number;
+    parkCode: string;
     parkNotes: string;
-    dateVisited: string; //how to best make this into a date instead of a string?
+    dateVisited: string;
 }

@@ -4,6 +4,7 @@
         <p>{{park.name}}</p>
         <p>{{park.description}}</p>
 
+        <app-maps [mapImageUrl]="mapUrl"></app-maps>      
 
         <div *ngIf="park.operatingHours && park.operatingHours.length > 0">
             <div *ngFor="let hours of park.operatingHours">

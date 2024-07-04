@@ -7,6 +7,9 @@ import { ParkResponse } from '../interfaces/park';
   providedIn: 'root'
 })
 export class NationalParkService {
+  getParkData(parkCode: string) {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'https://developer.nps.gov/api/v1';
   private apiKey = 'r4OSxniaCtevFyb5dCkZc0z0D8bSQLsTRdfK7o9L';
 

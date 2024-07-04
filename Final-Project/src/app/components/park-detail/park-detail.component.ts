@@ -23,6 +23,10 @@ export class ParkDetailComponent implements OnInit {
   error: string = '';
   parkCode: string = '';
   park: Park | null = null;
+  long= ''
+  lat= ''
+  mapUrl = ''
+  
   //this.parkCode == route paramater check notes
 
   constructor(private route: ActivatedRoute, private nationalParkService: NationalParkService) { }
@@ -36,9 +40,13 @@ export class ParkDetailComponent implements OnInit {
     ).subscribe({
       next: (data: ParkResponse) => {
         this.parkResponse = data;
-        //console.log(this.parkResponse.data[0].latLong)
         this.error = '';
         this.park = this.parkResponse.data[0];
+        this.lat = this.park.latitude
+        this.long = this.park.longitude
+        this.mapUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${this.lat},${this.long}&zoom=8&size=900x400&key=AIzaSyB8AUBjZnPw4AHCAo0_QDGz_bdLapP7Gbg`
+        console.log(this.park)
+        console.log('coords',this.lat,this.long)
       },
       error: (error) => {
         console.error('Error fetching data:', error);

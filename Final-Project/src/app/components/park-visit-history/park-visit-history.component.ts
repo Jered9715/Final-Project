@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ParkResponse, Park } from '../../interfaces/park';
 import { switchMap } from 'rxjs';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-park-detail',
@@ -26,11 +27,32 @@ export class ParkVisitHistoryComponent implements OnInit{
     dateVisited: '',
     userId: 0
   };
+  parks: { [key: string]: Park } = {};
+  parkResponse: ParkResponse | null = null;
+  error: string = '';
+  parkCode: string = '';
+  park: Park | null = null;
 
-  constructor(private parkVisitHistoryService: ParkVisitHistoryService, private router: Router) {}
+  constructor(private parkVisitHistoryService: ParkVisitHistoryService, 
+    private nationalParkService: NationalParkService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.history = this.parkVisitHistoryService.getParkVisitHistory();
-  }
 
+    this.history.forEach(history => {
+      const parkCode = history.parkCode;
+      if (!this.parks[parkCode]) {
+        this.nationalParkService.getParkByParkCode(parkCode).subscribe(
+          (data: ParkResponse) => {
+            this.parkResponse = data;
+            this.error = '';
+            this.park = this.parkResponse.data[0];
+          },
+          (error) => {
+            console.error('failed to fetch park by id', error);
+          }
+        )
+      }
+    });
+  }
 }

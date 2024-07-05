@@ -1,6 +1,7 @@
 <div> 
     <h1>Parks You've Visited</h1>
     <ul>
-        <li *ngFor="let history of history"></li>
+        <li *ngFor="let newHistory of history"></li>
+        <p>Park Name: {{ parks[newHistory.parkCode]?.name }}</p>
     </ul>
-</div>>
+</div>

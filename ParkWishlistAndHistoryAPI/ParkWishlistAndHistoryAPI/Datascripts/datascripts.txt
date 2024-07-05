@@ -1,0 +1,32 @@
+﻿//New Query//
+
+CREATE Database ParkTracker
+
+//Open new query on the new ParkTracker Database//
+
+CREATE TABLE EndUser (
+UserId int PRIMARY KEY IDENTITY,
+FirstName NVARCHAR(50),
+LastName NVARCHAR(50),
+);
+
+CREATE TABLE ParkVisitHistory (
+ParkVisitID int PRIMARY KEY IDENTITY,
+UserId int,
+ParkCode NVARCHAR(MAX),
+ParkNotes NVARCHAR(MAX),
+DateVisited NVARCHAR(15),
+FOREIGN KEY (UserId) REFERENCES EndUser(UserId)
+);
+
+CREATE TABLE WishList(
+wishListId int PRIMARY KEY IDENTITY,
+UserId int,
+ParkCode NVARCHAR(MAX),
+FOREIGN KEY (UserId) REFERENCES EndUser(UserId)
+);
+
+
+//Basic data for user even though we dont plan on using it
+
+Insert INTO EndUser(FirstName,LastName)Values('Jane','Doe');

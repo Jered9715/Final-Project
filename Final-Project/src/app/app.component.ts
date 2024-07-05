@@ -4,11 +4,12 @@ import { ParkListComponent } from './components/park-list/park-list.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import { ParkDetailComponent } from './components/park-detail/park-detail.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,ParkListComponent,MatToolbarModule,MatIconModule, ParkDetailComponent],
+  imports: [RouterOutlet,ParkListComponent,MatToolbarModule,MatIconModule, ParkDetailComponent,MenuComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

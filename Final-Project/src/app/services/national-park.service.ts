@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient , HttpHeaders , HttpParams} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ParkResponse } from '../interfaces/park';
+import { ParkResponse , Park} from '../interfaces/park';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class NationalParkService {
     const headers = new HttpHeaders({
       'X-Api-Key': this.apiKey
     });
-    return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, {headers: headers});
+    return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, { headers: headers });
   }
 
   getParksBySearch(query: string, sort: string): Observable<ParkResponse> {
@@ -31,7 +32,7 @@ export class NationalParkService {
     if (sort) {
       params = params.set('sort', sort);
     }
-    return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, {headers: headers, params: params});
+    return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, { headers: headers, params: params });
   }
 
   getParkByParkCode(parkCode: string): Observable<ParkResponse> {
@@ -40,8 +41,6 @@ export class NationalParkService {
     });
     let params = new HttpParams();
     params = params.set('parkCode', parkCode);
-    return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, {headers: headers, params: params});
+    return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, { headers: headers, params: params });
   }
-
 }
-

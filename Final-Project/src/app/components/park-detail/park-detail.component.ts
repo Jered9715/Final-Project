@@ -7,7 +7,8 @@ import { NationalParkService } from '../../services/national-park.service';
 import { MapsComponent } from '../maps/maps.component';
 import { ParkResponse, Park } from '../../interfaces/park';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { switchMap} from 'rxjs';
+import { map } from 'rxjs';
 
 
 @Component({
@@ -26,8 +27,6 @@ export class ParkDetailComponent implements OnInit {
   long= ''
   lat= ''
   mapUrl = ''
-  
-  //this.parkCode == route paramater check notes
 
   constructor(private route: ActivatedRoute, private nationalParkService: NationalParkService) { }
 

@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ParkVisitHistory } from '../../interfaces/park-visit-history';
 import { ParkVisitHistoryService } from '../../services/park-visit-history.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-park-list',

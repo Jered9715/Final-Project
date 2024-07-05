@@ -22,7 +22,7 @@ import { map } from 'rxjs';
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule, MatCardModule, MatButtonModule,
     MatGridListModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSidenavModule],
-  providers: [NationalParkService],
+  providers: [NationalParkService, ParkVisitHistoryService],
   templateUrl: './park-list.component.html',
   styleUrl: './park-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -37,14 +37,9 @@ export class ParkListComponent implements OnInit {
   parkCode: string = '';
   parkNotes: string = '';
   dateVisited: string = '';
-
-
   constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService) { }
-
   ngOnInit(): void {
-
   }
-
   getParks(): void {
     this.nationalParkService.getParks().subscribe({
       next: (data: ParkResponse) => {
@@ -57,13 +52,11 @@ export class ParkListComponent implements OnInit {
       }
     });
   }
-
   searchParks(): void {
     if (this.query.trim() === '') {
       this.getParks();
       return;
     }
-
     this.nationalParkService.getParksBySearch(this.query, this.sort).subscribe(
       (data: ParkResponse) => {
         this.parkResponse = data;
@@ -81,27 +74,17 @@ export class ParkListComponent implements OnInit {
       }
     );
   }
-
   filterParks(): void {
     if (this.parkResponse) {
       this.filteredParks = this.parkResponse.data.filter(park => park.designation === 'National Park');
     }
   }
-
-
-
-
-
-
-  
-  /* this could be used if we wanted a auto fill feature - if determined not wanted we can delete, 
+  /* this could be used if we wanted a auto fill feature - if determined not wanted we can delete,
   to do this we would need to create a localy stored array in the angular file that would hold all the names of the national parks
   then you could set the filtered cards to the array of national park names and it would autofill
-
   see note from cass for the html if wanted
-
   filterCards(event: Event) {
-     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase(); 
+     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
      this.filteredCards = this.cards.filter(card => card.content.toLowerCase().includes(searchTerm) ); }
   */
   addParkVisitHistory(): void {
@@ -113,7 +96,6 @@ export class ParkListComponent implements OnInit {
         dateVisited: this.dateVisited,
         userId: 2
       };
-
       /*this.parkVisitHistoryService.addParkVisitHistory(newParkVisitHistory.parkCode, newParkVisitHistory.parkNotes, newParkVisitHistory.dateVisited).subscribe(
         (response: ParkVisitHistory) => {
           console.log('Park visit history added: ', response);
@@ -128,5 +110,4 @@ export class ParkListComponent implements OnInit {
     );*/
     }
   }
-
 }

@@ -15,10 +15,18 @@ builder.Services.AddScoped<ParkTrackerContext>();
 builder.Services.AddScoped<EndUserRepository>();
 builder.Services.AddScoped<ParkVisitHistoryRepository>();
 builder.Services.AddScoped<WishListRepository>();
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", builder =>
+    {
+        builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
-app.UseCors("AllowAllOrigins");
+
 
 
 // Configure the HTTP request pipeline.
@@ -27,6 +35,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAllOrigins");
 
 app.UseHttpsRedirection();
 

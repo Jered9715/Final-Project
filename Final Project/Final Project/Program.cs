@@ -15,7 +15,21 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<ParkVisitHistoryRepository>();
 builder.Services.AddScoped<WishlistRepository>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+    builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+
+});
+
 var app = builder.Build();
+
+app.UseCors("AllowAllOrigins"); // Use the CORS policy
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

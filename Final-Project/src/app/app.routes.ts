@@ -9,12 +9,14 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { ParkDetailComponent } from './components/park-detail/park-detail.component';
 import { ParkNotesComponent } from './components/park-notes/park-notes.component';
 import { ParkVisitHistoryComponent } from './components/park-visit-history/park-visit-history.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/park-list', pathMatch: 'full'},
     {path: 'park-list', component: ParkListComponent},
     {path: 'park-detail/:parkCode', component: ParkDetailComponent},
     {path: 'park-notes', component: ParkNotesComponent},
+    {path: 'dashboard', component: DashboardComponent},
     {path: 'park-visit-history', component: ParkVisitHistoryComponent}
 ];
 

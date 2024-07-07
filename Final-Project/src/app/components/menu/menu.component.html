@@ -1,34 +1,40 @@
-<!-- Top bar logo and navigation, thinking of placing this in the app.component instead as this will be needed always for nav-->
-<div>
-    <mat-toolbar>
-        <!--start of side nav  currently not fully working-->
-        <mat-drawer-container class="example-container" autosize>
-            <mat-drawer #drawer class="example-sidenav" mode="side">
+<mat-sidenav-container class="example-container">
+    <!-- What shows inside side nav-->
+    <mat-sidenav class="side-menu-items" #sidenav mode="side">
+        <mat-list role="list">
+            <mat-list-item role="listitem"><button mat-button [routerLink]="['dashboard']"><mat-icon aria-hidden="false"
+                        aria-label="Example home icon" fontIcon="home"></mat-icon> Dashboard</button></mat-list-item>
 
-            </mat-drawer>
+            <mat-list-item role="listitem"><button mat-button
+                    [routerLink]="['park-list']"><mat-icon aria-hidden="false"
+                    aria-label="Example home icon" fontIcon="explore"></mat-icon>Search</button></mat-list-item>
 
-            <div class="example-sidenav-content">
-                <button mat-icon-button class="example-icon" (click)="drawer.toggle()"
-                    aria-label="Example icon-button with menu icon">
-                    <mat-icon>menu</mat-icon>
-                </button>
-            </div>
+        </mat-list>
+    </mat-sidenav>
 
-        </mat-drawer-container>
+    <mat-sidenav-content>
+        <!-- Menu bar-->
+        <mat-toolbar color="primary">
+            <!-- button icon and switch for opening and closing side nav-->
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+                (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
 
+            <!--remainder of the menu bar-->
+            <span>Build Your National Park Passport</span>
+            <span class="example-spacer"></span>
 
+            <!--Secondary menu buttons, currently no function-->
+            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                <mat-icon>favorite</mat-icon>
+            </button>
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+                <mat-icon>share</mat-icon>
+            </button>
+        </mat-toolbar>
 
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-
-        </button>
-
-
-        <span>Build Your National Park Passport</span>
-        <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-            <mat-icon>favorite</mat-icon>
-        </button>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-            <mat-icon>share</mat-icon>
-        </button>
-    </mat-toolbar>
+        <!-- Displayed content underneath menu-->
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

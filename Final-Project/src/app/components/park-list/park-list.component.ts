@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit , EventEmitter, Output} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -15,14 +15,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ParkVisitHistory } from '../../interfaces/park-visit-history';
 import { ParkVisitHistoryService } from '../../services/park-visit-history.service';
-import { map } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ParkNotesComponent } from '../park-notes/park-notes.component';
 
 @Component({
   selector: 'app-park-list',
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule, MatCardModule, MatButtonModule,
-    MatGridListModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSidenavModule],
-  providers: [NationalParkService],
+    MatGridListModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSidenavModule, ParkNotesComponent],
+  providers: [NationalParkService, ParkVisitHistoryService],
   templateUrl: './park-list.component.html',
   styleUrl: './park-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -38,11 +39,8 @@ export class ParkListComponent implements OnInit {
   parkNotes: string = '';
   dateVisited: string = '';
 
-
-  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService) { }
-
+  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog) { }
   ngOnInit(): void {
-
   }
 
   getParks(): void {
@@ -63,7 +61,6 @@ export class ParkListComponent implements OnInit {
       this.getParks();
       return;
     }
-
     this.nationalParkService.getParksBySearch(this.query, this.sort).subscribe(
       (data: ParkResponse) => {
         this.parkResponse = data;
@@ -88,45 +85,34 @@ export class ParkListComponent implements OnInit {
     }
   }
 
-
-
-
-
-
-  
-  /* this could be used if we wanted a auto fill feature - if determined not wanted we can delete, 
+  openParkNotesDialog(parkCode: string): void {
+    const dialogRef = this.dialog.open(ParkNotesComponent, {
+      width: '500px', 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  /* this could be used if we wanted a auto fill feature - if determined not wanted we can delete,
   to do this we would need to create a localy stored array in the angular file that would hold all the names of the national parks
   then you could set the filtered cards to the array of national park names and it would autofill
-
   see note from cass for the html if wanted
-
   filterCards(event: Event) {
-     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase(); 
+     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
      this.filteredCards = this.cards.filter(card => card.content.toLowerCase().includes(searchTerm) ); }
   */
-  addParkVisitHistory(): void {
-    if (this.parkCode && this.parkNotes && this.dateVisited) {
-      const newParkVisitHistory: ParkVisitHistory = {
-        parkVisitId: 0,
-        parkCode: this.parkCode,
-        parkNotes: this.parkNotes,
-        dateVisited: this.dateVisited,
-        userId: 2
-      };
-
-      /*this.parkVisitHistoryService.addParkVisitHistory(newParkVisitHistory.parkCode, newParkVisitHistory.parkNotes, newParkVisitHistory.dateVisited).subscribe(
-        (response: ParkVisitHistory) => {
-          console.log('Park visit history added: ', response);
-          this.parkCode = '';
-          this.parkNotes = '';
-          this.dateVisited = '';
-        },
-        (error) => {
-          console.error('Failed to add park visit:', error);
-          this.error = 'Failed to add park visit. Please try again later';
-        }
-    );*/
-    }
+  addParkVisitHistory(newParkVisitHistory: any): void {
+    this.parkVisitHistoryService.addParkVisitHistory(newParkVisitHistory.parkCode, newParkVisitHistory.parkNotes, newParkVisitHistory.dateVisited).subscribe(
+      (response: ParkVisitHistory) => {
+        console.log('Park visit history added: ', response);
+        this.parkCode = '';
+        this.parkNotes = '';
+        this.dateVisited = '';
+      },
+      (error) => {
+        console.error('Failed to add park visit:', error);
+        this.error = 'Failed to add park visit. Please try again later';
+      }
+    );
   }
-
 }

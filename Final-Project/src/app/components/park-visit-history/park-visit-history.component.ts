@@ -37,7 +37,7 @@ export class ParkVisitHistoryComponent implements OnInit{
     private nationalParkService: NationalParkService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.history = this.parkVisitHistoryService.getParkVisitHistory();
+    this.parkVisitHistoryService.getParkVisitHistory().subscribe(history => this.history = history);
 
     this.history.forEach(history => {
       const parkCode = history.parkCode;

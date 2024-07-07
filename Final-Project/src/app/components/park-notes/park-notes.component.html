@@ -5,11 +5,10 @@
         
         <h1>Tell Us About Your Visit!</h1>
         <form class="example-form">
-            
             <!-- Date picker -->
             <mat-form-field>
                 <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="dateVisited">
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -18,12 +17,12 @@
             <!-- text input-->
             <mat-form-field class="example-full-width">
                 <mat-label>Leave a comment</mat-label>
-                <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+                <textarea matInput placeholder="Ex. It makes me feel..." [(ngModel)]= "parkNotes"></textarea>
             </mat-form-field>
 
             <!-- -->
             <div class="example-button-row">
-                <button mat-flat-button color="accent">Submit</button>
+                <button mat-flat-button color="accent" (click)="addParkVisitHistory()">Submit</button>
             </div>
         </form>
     </mat-card-content>

@@ -37,6 +37,7 @@
             <mat-card-actions>
                 <button mat-button [routerLink]="['/park-detail', park.parkCode]">DETAILS</button>
                 <button mat-button>WISHLIST</button>
+                <button mat-button (click)="openParkNotesDialog(park.parkCode)">VISITED</button>
             </mat-card-actions>
             <mat-card-footer></mat-card-footer>
         </mat-card>

@@ -1,0 +1,2 @@
+ALTER TABLE ParkVisitHistory
+ALTER COLUMN DateVisited NVARCHAR(100);

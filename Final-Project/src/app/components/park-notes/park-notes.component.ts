@@ -10,13 +10,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ParkListComponent } from '../park-list/park-list.component';
+import { ParkVisitHistoryService } from '../../services/park-visit-history.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-park-notes',
   standalone: true,
-  providers: [provideNativeDateAdapter(), MatDialog],
+  providers: [provideNativeDateAdapter(), MatDialog, ParkVisitHistoryService],
   imports: [MatDatepickerModule, MatFormFieldModule, MatInputModule, FormsModule,
-    MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, ParkListComponent],
+    MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, ParkListComponent, HttpClientModule],
   templateUrl: './park-notes.component.html',
   styleUrl: './park-notes.component.scss',
 
@@ -26,16 +28,17 @@ export class ParkNotesComponent {
   parkNotes: string = '';
   dateVisited: Date | null = null;
   parkListComponent: any;
-  dialogRef: any;
 
-  
-  constructor(){}
+
+  constructor(
+    private parkVisitHistoryService: ParkVisitHistoryService,
+    private dialogRef: MatDialogRef<ParkNotesComponent>){ }
 
   addParkVisitHistory(): void {
     console.log('Park Code:', this.parkCode);
     console.log('Park Notes:', this.parkNotes);
     console.log('Date Visited:', this.dateVisited);
-    if (this.parkNotes && this.dateVisited) {
+    if (this.parkCode && this.parkNotes && this.dateVisited) {
       const newParkVisitHistory = {
         parkCode: this.parkCode,
         parkNotes: this.parkNotes,
@@ -44,9 +47,17 @@ export class ParkNotesComponent {
 
       console.log('New park visit history:', newParkVisitHistory);
 
-      this.parkListComponent.addParkVisitHistory(newParkVisitHistory);
+      this.parkVisitHistoryService.addParkVisitHistory(newParkVisitHistory.parkCode, newParkVisitHistory.parkNotes, newParkVisitHistory.dateVisited).subscribe(
+        (response: any) => {
+          console.log('Park visit history added: ', response);
+          this.dialogRef.close(response);
+        },
+        (error) => {
+          console.error('Failed to add park history: ', error);
+          this.dialogRef.close();
+        }
+      );
 
-      //this.dialogRef.close();//
     } else {
       console.error('All Required fields needed.');
     }

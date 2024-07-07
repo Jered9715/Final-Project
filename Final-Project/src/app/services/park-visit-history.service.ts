@@ -13,12 +13,12 @@ export class ParkVisitHistoryService {
 
   constructor(private http: HttpClient) { }
 
-  getParkVisitHistory (): Observable<ParkVisitHistory[]> {
+  getParkVisitHistory(): Observable<ParkVisitHistory[]> {
     return this.http.get<ParkVisitHistory[]>(this.apiUrl);
   }
 
-  getParkVisitHistoryById(parkCode: string): Observable<ParkVisitHistory[]> {
-    return this.http.get<ParkVisitHistory[]>(`${this.apiUrl}/${parkCode}`)
+  getParkVisitHistoryById(userId: number): Observable<ParkVisitHistory[]> {
+    return this.http.get<ParkVisitHistory[]>(`${this.apiUrl}/${userId}`)
   }
 
   addParkVisitHistory (parkCode: string, parkNotes: string, dateVisited: string): Observable<ParkVisitHistory> {

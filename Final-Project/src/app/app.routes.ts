@@ -15,7 +15,7 @@ export const routes: Routes = [
     {path: 'park-list', component: ParkListComponent},
     {path: 'park-detail/:parkCode', component: ParkDetailComponent},
     {path: 'park-notes', component: ParkNotesComponent},
-    {path: 'park-visit-history/:userId', component: ParkVisitHistoryComponent}
+    {path: 'park-visit-history', component: ParkVisitHistoryComponent}
 ];
 
 bootstrapApplication(AppComponent, {

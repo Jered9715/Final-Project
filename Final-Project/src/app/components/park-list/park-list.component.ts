@@ -101,18 +101,5 @@ export class ParkListComponent implements OnInit {
      const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
      this.filteredCards = this.cards.filter(card => card.content.toLowerCase().includes(searchTerm) ); }
   */
-  addParkVisitHistory(newParkVisitHistory: any): void {
-    this.parkVisitHistoryService.addParkVisitHistory(newParkVisitHistory.parkCode, newParkVisitHistory.parkNotes, newParkVisitHistory.dateVisited).subscribe(
-      (response: ParkVisitHistory) => {
-        console.log('Park visit history added: ', response);
-        this.parkCode = '';
-        this.parkNotes = '';
-        this.dateVisited = '';
-      },
-      (error) => {
-        console.error('Failed to add park visit:', error);
-        this.error = 'Failed to add park visit. Please try again later';
-      }
-    );
-  }
+  
 }

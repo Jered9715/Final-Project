@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ParkVisitHistory } from '../interfaces/park-visit-history';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Park } from '../interfaces/park';
 import { Observable } from 'rxjs';
 
@@ -7,65 +9,30 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ParkVisitHistoryService {
-  private history: ParkVisitHistory[] = [
-    {
-      parkVisitId: 1,
-      parkCode: "abcd",
-      userId: 2,
-      parkNotes: "I loved it",
-      dateVisited: "10/24/2023"
-    },
-    {
-      parkVisitId: 2,
-      parkCode: "cdef",
-      userId: 2,
-      parkNotes: "I loved it",
-      dateVisited: "10/24/2023"
-    },
-    {
-      parkVisitId: 3,
-      parkCode: "huie",
-      userId: 2,
-      parkNotes: "I loved it",
-      dateVisited: "10/24/2023"
-    }
-  ];
+  private apiUrl = 'http://localhost:5065/api/ParkVisitHistory';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getParkVisitHistory (): ParkVisitHistory[] {
-    return this.history;
+  getParkVisitHistory(): Observable<ParkVisitHistory[]> {
+    return this.http.get<ParkVisitHistory[]>(this.apiUrl);
   }
 
-  /*addParkVisitHistory (parkCode: string, parkNotes: string, dateVisited: string): Observable<ParkVisitHistory> {
-    const newHistory: ParkVisitHistory = {
-      parkVisitId: this.history.length +1,
-      parkCode: parkCode,
-      userId: 2,
-      parkNotes: parkNotes,
-      dateVisited: dateVisited
-    }
-    this.history.push(newHistory);
-    return newHistory;
-  }*/
-
-  updateParkVisitHistory (updatedHistory: ParkVisitHistory): boolean {
-    const index = this.history.findIndex(p => p.parkVisitId === updatedHistory.parkVisitId);
-    if (index !== -1) {
-      this.history[index] = updatedHistory;
-      return true;
-    }
-
-    return false;
+  getParkVisitHistoryById(userId: number): Observable<ParkVisitHistory[]> {
+    return this.http.get<ParkVisitHistory[]>(`${this.apiUrl}/${userId}`)
   }
 
-  deleteParkVisitHistory(id: number): boolean {
-    const index = this.history.findIndex(p => p.parkVisitId === id);
-    if (index !== -1) {
-      this.history.splice(index, 1);
-      return true;
-    }
-    return false;
+  addParkVisitHistory (parkCode: string, parkNotes: string, dateVisited: string): Observable<ParkVisitHistory> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    const body = {parkCode, parkNotes, dateVisited}
+    return this.http.post<ParkVisitHistory>(this.apiUrl, body , httpOptions);
+  }
+
+  deleteParkVisitHistory(parkVisitId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${parkVisitId}`)
   }
 
 }

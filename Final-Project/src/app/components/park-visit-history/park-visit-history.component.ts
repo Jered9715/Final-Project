@@ -9,49 +9,62 @@ import { HttpClientModule } from '@angular/common/http';
 import { ParkResponse, Park } from '../../interfaces/park';
 import { switchMap } from 'rxjs';
 import { map } from 'rxjs';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-park-detail',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, RouterLinkActive],
+  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, RouterLinkActive, MatCardModule,MatButtonModule,MatGridListModule,MatToolbarModule,MatIconModule,MatFormFieldModule,MatInputModule,MatSidenavModule],
   providers: [NationalParkService, ParkVisitHistoryService],
   templateUrl: './park-visit-history.component.html',
   styleUrl: './park-visit-history.component.scss'
 })
 export class ParkVisitHistoryComponent implements OnInit{
   history: ParkVisitHistory[] = [];
-  newHistory: ParkVisitHistory = {
-    parkVisitId: 0,
-    parkCode: '',
-    parkNotes: '',
-    dateVisited: '',
-    userId: 0
-  };
   parks: { [key: string]: Park } = {};
-  parkResponse: ParkResponse | null = null;
   error: string = '';
-  parkCode: string = '';
-  park: Park | null = null;
 
   constructor(private parkVisitHistoryService: ParkVisitHistoryService, 
     private nationalParkService: NationalParkService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.history = this.parkVisitHistoryService.getParkVisitHistory();
+    this.loadVisitHistory();
+  }
 
-    this.history.forEach(history => {
-      const parkCode = history.parkCode;
+  loadVisitHistory(): void{
+    this.parkVisitHistoryService.getParkVisitHistory().subscribe(
+      (history: ParkVisitHistory[]) => {
+        this.history = history;
+        this.loadParks();
+      },
+      (error) => {
+        this.error = 'Failed to get park visit history';
+        console.error('Error loading park visit history');
+      }
+    );
+  }
+
+  loadParks(): void {
+    this.history.forEach((historyItem: ParkVisitHistory) => {
+      const parkCode = historyItem.parkCode;
       if (!this.parks[parkCode]) {
         this.nationalParkService.getParkByParkCode(parkCode).subscribe(
-          (data: ParkResponse) => {
-            this.parkResponse = data;
-            this.error = '';
-            this.park = this.parkResponse.data[0];
+          (response: ParkResponse) => {
+            if (response.total > 0) {
+              this.parks[parkCode] = response.data[0];
+            }
           },
-          (error) => {
-            console.error('failed to fetch park by id', error);
+          (error: any) => {
+            console.error(`Failed to get park with code ${parkCode}:`, error);
           }
-        )
+        );
       }
     });
   }

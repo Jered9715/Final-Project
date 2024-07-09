@@ -1,53 +1,21 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { WishListItem } from '../interfaces/wishlist';
-import { UsersService } from './users.service';
-
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WishlistService {
+  private apiUrl = 'https://localhost:7298/api/wishlist'; 
 
-  private wishListItems: WishListItem[]=[
-    {
-      userId:1 ,
-      wishListId:1 ,
-      parkId: 'Yellow Stone',
-    },
-    {
-      userId:1 ,
-      wishListId:2 ,
-      parkId: 'Grand Canyon',
-    },
-    {
-      userId:2 ,
-      wishListId:3 ,
-      parkId: 'Yosemite',
-    },
-    {
-      userId:3 ,
-      wishListId:5 ,
-      parkId: 'Glacier',
-    },
-    {
-      userId:1 ,
-      wishListId:6 ,
-      parkId: 'Everglades',
-    }
-  ];
-  
+  constructor(private http: HttpClient) {}
 
-
-  constructor(private usersService: UsersService) { }
-
-  getAllWishLists():WishListItem[]{
-    return this.wishListItems;
-  }
-  
-  getUserWishlist(userId: number): WishListItem[]{
-    return this.wishListItems.filter(wishlist => this.wishListItems.some(wish => wish.userId === userId))
+  getWishlistItems(): Observable<WishListItem[]> {
+    return this.http.get<WishListItem[]>(this.apiUrl);
   }
 
-
+  addWishlistItem(parkCode: string): Observable<any> {
+    return this.http.post(this.apiUrl, parkCode);
+  }
 }

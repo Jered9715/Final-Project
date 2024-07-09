@@ -11,6 +11,11 @@ import { switchMap} from 'rxjs';
 import { map } from 'rxjs';
 import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ParkNotesComponent } from '../park-notes/park-notes.component';
+import { ParkCodeService } from '../../services/park-code.service';
+import { MatDialog } from '@angular/material/dialog';
+
+
 
 @Component({
   selector: 'app-park-detail',
@@ -28,8 +33,13 @@ export class ParkDetailComponent implements OnInit {
   long= ''
   lat= ''
   mapUrl = ''
+
   panelOpenState = false;
-  constructor(private route: ActivatedRoute, private nationalParkService: NationalParkService) { }
+
+
+
+  constructor(private route: ActivatedRoute, private nationalParkService: NationalParkService, public dialog: MatDialog, private parkCodeService: ParkCodeService) { }
+
 
   ngOnInit(): void {
     this.route.params.pipe(
@@ -52,6 +62,17 @@ export class ParkDetailComponent implements OnInit {
         console.error('Error fetching data:', error);
         this.error = 'Failed to fetch data. Please try again later';
       }
+    });
+  }
+
+  openParkNotesDialog(parkCode: string): void {
+    this.parkCodeService.setParkCode(parkCode);
+    console.log("Park Code: ", parkCode)
+    const dialogRef = this.dialog.open(ParkNotesComponent, {
+      width: '500px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 }

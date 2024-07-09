@@ -10,6 +10,7 @@ import { ParkDetailComponent } from './components/park-detail/park-detail.compon
 import { ParkNotesComponent } from './components/park-notes/park-notes.component';
 import { ParkVisitHistoryComponent } from './components/park-visit-history/park-visit-history.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/park-list', pathMatch: 'full'},

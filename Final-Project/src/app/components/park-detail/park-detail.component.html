@@ -1,5 +1,6 @@
 <div *ngIf="parkResponse">
     <div *ngIf="park">
+        <!--Park name card card w/ description-->
         <h1>{{park.name}}</h1>
         <h3>Park Description</h3>
         <p>{{park.description}}</p>
@@ -7,38 +8,73 @@
         <app-maps [mapImageUrl]="mapUrl"></app-maps>      
         <button mat-button (click)="openParkNotesDialog(park.parkCode)">VISITED</button>
 
-        <div *ngIf="park.operatingHours && park.operatingHours.length > 0">
-            <div *ngFor="let hours of park.operatingHours">
-                <h3>Park Hours</h3>
-                <p><strong>Standard Hours</strong></p>
-                <ul>
-                    <li>Sunday: {{hours.standardHours.sunday}}</li>
-                    <li>Monday: {{hours.standardHours.monday}}</li>
-                    <li>Tuesday: {{hours.standardHours.tuesday}}</li>
-                    <li>Wednesday: {{hours.standardHours.wednesday}}</li>
-                    <li>Thursday: {{hours.standardHours.thursday}}</li>
-                    <li>Friday: {{hours.standardHours.friday}}</li>
-                    <li>Saturday: {{hours.standardHours.saturday}}</li>
-                </ul>
 
-                <p *ngIf="hours.exceptions && hours.exceptions.length > 0">
-                <p><strong>Exceptions to Standard Hours</strong></p>
-                <div *ngFor="let exception of hours.exceptions">
-                    <p><strong>Start Date:</strong> {{exception.startDate}}</p>
-                    <p><strong>End Date:</strong> {{exception.endDate}}</p>
-                    <ul>
-                        <li>Sunday: {{exception.exceptionHours.sunday}}</li>
-                        <li>Monday: {{exception.exceptionHours.monday}}</li>
-                        <li>Tuesday: {{exception.exceptionHours.tuesday}}</li>
-                        <li>Wednesday: {{exception.exceptionHours.wednesday}}</li>
-                        <li>Thursday: {{exception.exceptionHours.thursday}}</li>
-                        <li>Friday: {{exception.exceptionHours.friday}}</li>
-                        <li>Saturday: {{exception.exceptionHours.saturday}}</li>
-                    </ul>
-                    <p>{{exception.description}}</p>
+        <!--Map in Basic Card-->
+        <app-maps [mapImageUrl]="mapUrl"></app-maps>
+
+
+        <!--Hours of operation lists -->
+        <div *ngIf="park.operatingHours && park.operatingHours.length > 0">
+            
+            <h3>Park Hours</h3>
+            <mat-accordion>
+
+                <!--start of expansion field w/ internal list for standard hours-->
+                <div *ngFor="let hours of park.operatingHours">
+                    <mat-expansion-panel hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Standard Hours
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <mat-list role="list">
+                            <mat-list-item role="listitem">Sunday: {{hours.standardHours.sunday}}</mat-list-item>
+                            <mat-list-item role="listitem">Monday: {{hours.standardHours.monday}}</mat-list-item>
+                            <mat-list-item role="listitem">Tuesday: {{hours.standardHours.tuesday}}</mat-list-item>
+                            <mat-list-item role="listitem">Wednesday: {{hours.standardHours.wednesday}}</mat-list-item>
+                            <mat-list-item role="listitem">Thursday: {{hours.standardHours.thursday}}</mat-list-item>
+                            <mat-list-item role="listitem">Friday: {{hours.standardHours.friday}}</mat-list-item>
+                            <mat-list-item role="listitem">Saturday: {{hours.standardHours.saturday}}</mat-list-item>
+                        </mat-list>
+                    </mat-expansion-panel>
                 </div>
-                <p>{{hours.weatherInfo}}</p>
-            </div>
+
+                <!--start of expansion field w/ internal list for hours of exception-->
+                <div *ngFor="let hours of park.operatingHours">
+                    <div *ngFor="let exception of hours.exceptions">
+                        <mat-expansion-panel hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Exceptions to Standard Hours
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    Start Date: {{exception.startDate}} - End Date: {{exception.endDate}}
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <mat-list role="list">
+                                <mat-list-item role="listitem">Sunday:
+                                    {{exception.exceptionHours.sunday}}</mat-list-item>
+                                <mat-list-item role="listitem">Monday:
+                                    {{exception.exceptionHours.monday}}</mat-list-item>
+                                <mat-list-item role="listitem">Tuesday:
+                                    {{exception.exceptionHours.tuesday}}</mat-list-item>
+                                <mat-list-item role="listitem">Wednesday:
+                                    {{exception.exceptionHours.wednesday}}</mat-list-item>
+                                <mat-list-item role="listitem">Thursday:
+                                    {{exception.exceptionHours.thursday}}</mat-list-item>
+                                <mat-list-item role="listitem">Friday:
+                                    {{exception.exceptionHours.friday}}</mat-list-item>
+                                <mat-list-item role="listitem">Saturday:
+                                    {{exception.exceptionHours.saturday}}</mat-list-item>
+                            </mat-list>
+                        </mat-expansion-panel>
+                        <p>{{exception.description}}</p>
+                    </div>
+                </div>
+
+
+            </mat-accordion>
         </div>
     </div>
 </div>

@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ParkNotesComponent } from '../park-notes/park-notes.component';
 import { WishListItem } from '../../interfaces/wishlist';
 import { WishlistService } from '../../services/wishlist.service';
+import { ParkCodeService } from '../../services/park-code.service';
 
 @Component({
   selector: 'app-park-list',
@@ -43,7 +44,8 @@ export class ParkListComponent implements OnInit {
   dateVisited: string = '';
   wishlist: WishListItem[] = [];
 
-  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService) { }
+  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService, private parkCodeService: ParkCodeService) { }
+
   ngOnInit(): void {
   }
 
@@ -90,8 +92,10 @@ export class ParkListComponent implements OnInit {
   }
 
   openParkNotesDialog(parkCode: string): void {
+    this.parkCodeService.setParkCode(parkCode);
+    console.log("Park Code: ", parkCode)
     const dialogRef = this.dialog.open(ParkNotesComponent, {
-      width: '500px', 
+      width: '500px'
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

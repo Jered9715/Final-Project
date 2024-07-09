@@ -17,6 +17,8 @@ import { ParkVisitHistory } from '../../interfaces/park-visit-history';
 import { ParkVisitHistoryService } from '../../services/park-visit-history.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ParkNotesComponent } from '../park-notes/park-notes.component';
+import { WishListItem } from '../../interfaces/wishlist';
+import { WishlistService } from '../../services/wishlist.service';
 import { ParkCodeService } from '../../services/park-code.service';
 
 @Component({
@@ -24,12 +26,13 @@ import { ParkCodeService } from '../../services/park-code.service';
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule, MatCardModule, MatButtonModule,
     MatGridListModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSidenavModule, ParkNotesComponent],
-  providers: [NationalParkService, ParkVisitHistoryService],
+  providers: [NationalParkService, ParkVisitHistoryService, WishlistService],
   templateUrl: './park-list.component.html',
   styleUrl: './park-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ParkListComponent implements OnInit {
+
   parkResponse: ParkResponse | null = null;
   filteredParks: Park[] = [];
   error: string = '';
@@ -39,8 +42,10 @@ export class ParkListComponent implements OnInit {
   parkCode: string = '';
   parkNotes: string = '';
   dateVisited: string = '';
+  wishlist: WishListItem[] = [];
 
-  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private parkCodeService: ParkCodeService) { }
+  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService, private parkCodeService: ParkCodeService) { }
+
   ngOnInit(): void {
   }
 
@@ -96,13 +101,18 @@ export class ParkListComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-  /* this could be used if we wanted a auto fill feature - if determined not wanted we can delete,
-  to do this we would need to create a localy stored array in the angular file that would hold all the names of the national parks
-  then you could set the filtered cards to the array of national park names and it would autofill
-  see note from cass for the html if wanted
-  filterCards(event: Event) {
-     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
-     this.filteredCards = this.cards.filter(card => card.content.toLowerCase().includes(searchTerm) ); }
-  */
-  
-}
+
+  addWishlistItem(parkCode: string): void {
+    console.log('Park Code:', this.parkCode);
+
+      this.wishlistService.addWishlistItem(parkCode).subscribe(
+        (response: any) => {
+          console.log('Wishlist Item Added: ', response);
+        },
+        (error) => {
+          console.error('Failed to add to Wishlist: ', error);
+        }
+      );
+    }
+  }
+

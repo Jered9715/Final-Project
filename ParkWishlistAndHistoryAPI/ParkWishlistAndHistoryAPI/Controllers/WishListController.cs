@@ -36,9 +36,9 @@ namespace ParkWishlistAndHistoryAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddWish([FromBody] WishListCreationDto wishDto)
+        public IActionResult AddWish([FromBody] string parkCode)
         { 
-            _repo.AddWish(wishDto);
+            _repo.AddWish(parkCode);
             return Ok();
         }
 

@@ -21,14 +21,14 @@ namespace ParkWishlistAndHistoryAPI.DAL
             return _context.WishLists.FirstOrDefault(w => w.WishListId == id);
         }
 
-        public void AddWish(WishListCreationDto wishDto) 
+        public void AddWish(string parkCode) 
         {
             WishList wish = new WishList()
             {
                 //userId hard coded to one as we are not currently allowing for change of user
                 //can be easily modified to allow for different users
                 UserId = 1,
-                ParkCode = wishDto.ParkCode,
+                ParkCode = parkCode,
             };
             _context.WishLists.Add(wish);
             _context.SaveChanges();

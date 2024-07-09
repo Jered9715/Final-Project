@@ -17,6 +17,7 @@ import { ParkVisitHistory } from '../../interfaces/park-visit-history';
 import { ParkVisitHistoryService } from '../../services/park-visit-history.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ParkNotesComponent } from '../park-notes/park-notes.component';
+import { ParkCodeService } from '../../services/park-code.service';
 
 @Component({
   selector: 'app-park-list',
@@ -39,7 +40,7 @@ export class ParkListComponent implements OnInit {
   parkNotes: string = '';
   dateVisited: string = '';
 
-  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog) { }
+  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private parkCodeService: ParkCodeService) { }
   ngOnInit(): void {
   }
 
@@ -86,8 +87,10 @@ export class ParkListComponent implements OnInit {
   }
 
   openParkNotesDialog(parkCode: string): void {
+    this.parkCodeService.setParkCode(parkCode);
+    console.log("Park Code: ", parkCode)
     const dialogRef = this.dialog.open(ParkNotesComponent, {
-      width: '500px', 
+      width: '500px'
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

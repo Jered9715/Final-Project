@@ -68,4 +68,19 @@ export class ParkVisitHistoryComponent implements OnInit{
       }
     });
   }
+
+  removeHistoryItem(historyItem: ParkVisitHistory): void {
+    this.parkVisitHistoryService.deleteParkVisitHistory(historyItem.parkVisitId).subscribe(
+      () => {
+        const itemToRemove = this.history.indexOf(historyItem);
+        if (itemToRemove > -1) {
+          this.history.splice(itemToRemove, 1);
+        }
+      },
+      (error) => {
+        console.error('Failed to remove history item', error);
+      }
+    );
+
+  }
 }

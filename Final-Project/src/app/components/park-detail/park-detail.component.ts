@@ -9,15 +9,18 @@ import { ParkResponse, Park } from '../../interfaces/park';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap} from 'rxjs';
 import { map } from 'rxjs';
+import {MatListModule} from '@angular/material/list';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { ParkNotesComponent } from '../park-notes/park-notes.component';
 import { ParkCodeService } from '../../services/park-code.service';
 import { MatDialog } from '@angular/material/dialog';
 
 
+
 @Component({
   selector: 'app-park-detail',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, MapsComponent],
+  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, MapsComponent,MatListModule,MatExpansionModule],
   providers: [NationalParkService],
   templateUrl: './park-detail.component.html',
   styleUrl: './park-detail.component.scss'
@@ -31,7 +34,12 @@ export class ParkDetailComponent implements OnInit {
   lat= ''
   mapUrl = ''
 
+  panelOpenState = false;
+
+
+
   constructor(private route: ActivatedRoute, private nationalParkService: NationalParkService, public dialog: MatDialog, private parkCodeService: ParkCodeService) { }
+
 
   ngOnInit(): void {
     this.route.params.pipe(

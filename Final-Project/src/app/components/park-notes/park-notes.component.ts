@@ -17,7 +17,7 @@ import { ParkCodeService } from '../../services/park-code.service';
 @Component({
   selector: 'app-park-notes',
   standalone: true,
-  providers: [provideNativeDateAdapter(), MatDialog, ParkVisitHistoryService, ParkCodeService],
+  providers: [provideNativeDateAdapter(), MatDialog, ParkVisitHistoryService],
   imports: [MatDatepickerModule, MatFormFieldModule, MatInputModule, FormsModule,
     MatIconModule, MatButtonModule, MatTooltipModule, MatCardModule, ParkListComponent, HttpClientModule, MatDialogModule],
   templateUrl: './park-notes.component.html',
@@ -35,7 +35,7 @@ export class ParkNotesComponent implements OnInit {
   constructor(
     private parkVisitHistoryService: ParkVisitHistoryService,
     private dialogRef: MatDialogRef<ParkNotesComponent>,
-    private parkCodeService: ParkCodeService
+    private parkCodeService: ParkCodeService,
      ){ }
 
   ngOnInit(): void {

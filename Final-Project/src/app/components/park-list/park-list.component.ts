@@ -24,7 +24,7 @@ import { ParkCodeService } from '../../services/park-code.service';
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule, RouterModule, MatCardModule, MatButtonModule,
     MatGridListModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSidenavModule, ParkNotesComponent],
-  providers: [NationalParkService, ParkVisitHistoryService, ParkCodeService],
+  providers: [NationalParkService, ParkVisitHistoryService],
   templateUrl: './park-list.component.html',
   styleUrl: './park-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

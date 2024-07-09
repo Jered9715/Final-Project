@@ -1,24 +1,33 @@
-<div> 
+<div>
     <h1>Parks You've Visited</h1>
 </div>
 
 <div class="park-card-grid" *ngIf="!error">
-    <mat-card class='park-card' appearance="outlined" *ngFor="let historyItem of history">
-        <mat-card-header>
-            <mat-card-title>{{ parks[historyItem.parkCode]?.name }}</mat-card-title>
-            <mat-card-subtitle>
-                {{ parks[historyItem.parkCode].addresses[0]?.city }},
-                {{ parks[historyItem.parkCode].addresses[0]?.stateCode }}
-            </mat-card-subtitle>
-        </mat-card-header>
-        <img class="park-image" mat-card-image [src]="parks[historyItem.parkCode].images[0]?.url" [alt]="parks[historyItem.parkCode].images[0].altText">
-        <mat-card-footer>
-            <mat-card-subtitle>
-                {{historyItem.parkNotes}}
-                {{historyItem.dateVisited}}
-            </mat-card-subtitle>
-        </mat-card-footer>
-    </mat-card>
+    <ng-container *ngIf="history.length === 0; else historyItemsExist">
+        <p>You haven't visited any parks yes! Go search to start exploring!</p>
+    </ng-container>
+    <ng-template #historyItemsExist>
+        <mat-card class='park-card' appearance="outlined" *ngFor="let historyItem of history">
+            <mat-card-header>
+                <mat-card-title>{{ parks[historyItem.parkCode]?.name }}</mat-card-title>
+                <mat-card-subtitle>
+                    {{ parks[historyItem.parkCode].addresses[0]?.city }},
+                    {{ parks[historyItem.parkCode].addresses[0]?.stateCode }}
+                </mat-card-subtitle>
+            </mat-card-header>
+            <img class="park-image" mat-card-image [src]="parks[historyItem.parkCode].images[0]?.url"
+                [alt]="parks[historyItem.parkCode].images[0].altText">
+            <mat-card-footer>
+                <mat-card-subtitle>
+                    {{historyItem.parkNotes}}
+                    {{historyItem.dateVisited}}
+                </mat-card-subtitle>
+                <button mat-icon-button color="warn" (click)="removeHistoryItem(historyItem)">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-card-footer>
+        </mat-card>
+    </ng-template>
 </div>
 
 <div *ngIf="error">

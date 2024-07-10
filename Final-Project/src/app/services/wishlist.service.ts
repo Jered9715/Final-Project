@@ -7,7 +7,7 @@ import { WishListItem } from '../interfaces/wishlist';
   providedIn: 'root',
 })
 export class WishlistService {
-  private apiUrl = 'https://localhost:7298/api/wishlist'; 
+  private apiUrl = 'http://localhost:5065/api/WishList'; 
 
   constructor(private http: HttpClient) {}
 
@@ -16,6 +16,12 @@ export class WishlistService {
   }
 
   addWishlistItem(parkCode: string): Observable<any> {
-    return this.http.post(this.apiUrl, parkCode);
+    const body = { parkCode: parkCode };
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<any>(this.apiUrl, body, httpOptions);
   }
 }

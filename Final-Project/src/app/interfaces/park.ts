@@ -79,4 +79,5 @@ export interface Park {
         }[];
         weatherInfo: string;
     }[];
+    localPhotoPath: string;
 }

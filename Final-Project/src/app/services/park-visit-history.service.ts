@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ParkVisitHistoryService {
-  private apiUrl = 'http://localhost:5065/api/ParkVisitHistory';
+  private apiUrl = 'https://localhost:7298/api/ParkVisitHistory';
 
   constructor(private http: HttpClient) { }
 

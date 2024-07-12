@@ -14,13 +14,16 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { ParkNotesComponent } from '../park-notes/park-notes.component';
 import { ParkCodeService } from '../../services/park-code.service';
 import { MatDialog } from '@angular/material/dialog';
-
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @Component({
   selector: 'app-park-detail',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, MapsComponent,MatListModule,MatExpansionModule],
+  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, MapsComponent,MatListModule,MatExpansionModule,MatCardModule,MatIconModule,MatDividerModule,MatButtonModule],
   providers: [NationalParkService],
   templateUrl: './park-detail.component.html',
   styleUrl: './park-detail.component.scss'

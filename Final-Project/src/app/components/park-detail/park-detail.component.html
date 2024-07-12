@@ -1,18 +1,30 @@
+
 <div *ngIf="parkResponse">
     <div *ngIf="park">
+        <button mat-raised-button color="accent" (click)="openParkNotesDialog(park.parkCode)">VISITED</button>
         <!--Park name card card w/ description-->
+        <mat-card>
+<mat-card-content>
         <h1>{{park.name}}</h1>
         <h3>Park Description</h3>
         <p>{{park.description}}</p>
-  
-        <button mat-button (click)="openParkNotesDialog(park.parkCode)">VISITED</button>
-
+    </mat-card-content>
+    </mat-card>
+       
+    
 
         <!--Map in Basic Card-->
-        <app-maps [mapImageUrl]="mapUrl"></app-maps>
+<mat-card>
+    <mat-card-content>
+        <app-maps [mapImageUrl]="mapUrl"></app-maps> 
+    </mat-card-content>
+</mat-card>
 
 
-        <!--Hours of operation lists -->
+
+        <!--Hours of operation lists card -->
+       <mat-card>
+        <mat-card-content>
         <div *ngIf="park.operatingHours && park.operatingHours.length > 0">
             
             <h3>Park Hours</h3>
@@ -75,9 +87,11 @@
 
             </mat-accordion>
         </div>
+    </mat-card-content>
+</mat-card>
+
+
     </div>
 </div>
-
-
 
 <p *ngIf="error">{{error}}</p>

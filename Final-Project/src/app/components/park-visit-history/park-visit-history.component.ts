@@ -59,6 +59,8 @@ export class ParkVisitHistoryComponent implements OnInit{
           (response: ParkResponse) => {
             if (response.total > 0) {
               this.parks[parkCode] = response.data[0];
+              this.parks[parkCode].localPhotoPath = `assets/park-badges/${parkCode}.jpg`;
+              console.log("local photo:", this.parks[parkCode].localPhotoPath)
             }
           },
           (error: any) => {

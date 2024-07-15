@@ -17,6 +17,11 @@
           </mat-card-header>
           <img class="park-image" mat-card-image [src]="parks[wishlistChoice.parkCode].images[0]?.url"
               [alt]="parks[wishlistChoice.parkCode].images[0].altText">
+              <mat-card-footer>
+                <button button mat-raised-button color="warn" (click)="removeWishlistItem(wishlistChoice)">
+                  DELETE
+              </button>
+            </mat-card-footer>
       </mat-card>
   </ng-template>
 </div>

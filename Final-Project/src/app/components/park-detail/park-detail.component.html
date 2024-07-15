@@ -1,94 +1,108 @@
-
 <div *ngIf="parkResponse">
     <div *ngIf="park">
-        <button mat-raised-button color="accent" (click)="openParkNotesDialog(park.parkCode)">VISITED</button>
+
         <!--Park name card card w/ description-->
         <mat-card>
-<mat-card-content>
-        <h1>{{park.name}}</h1>
-        <h3>Park Description</h3>
-        <p>{{park.description}}</p>
-    </mat-card-content>
-    </mat-card>
-       
-    
+            <mat-card-title>
+                <h1>{{park.name}}</h1>
+            </mat-card-title>
+            
+            <mat-card-content>
+               
+                
+                <p>{{park.description}}</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="accent" class='visit-button'
+                    (click)="openParkNotesDialog(park.parkCode)">VISITED</button>
+            </mat-card-actions>
+        </mat-card>
+
+
 
         <!--Map in Basic Card-->
-<mat-card>
-    <mat-card-content>
-        <app-maps [mapImageUrl]="mapUrl"></app-maps> 
-    </mat-card-content>
-</mat-card>
+        <mat-card>
+            <mat-card-content>
+                <app-maps [mapImageUrl]="mapUrl"></app-maps>
+            </mat-card-content>
+        </mat-card>
 
 
 
         <!--Hours of operation lists card -->
-       <mat-card>
-        <mat-card-content>
-        <div *ngIf="park.operatingHours && park.operatingHours.length > 0">
-            
-            <h3>Park Hours</h3>
-            <mat-accordion>
+        <mat-card>
+            <mat-card-content>
+                <div *ngIf="park.operatingHours && park.operatingHours.length > 0">
 
-                <!--start of expansion field w/ internal list for standard hours-->
-                <div *ngFor="let hours of park.operatingHours">
-                    <mat-expansion-panel hideToggle>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                Standard Hours
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
+                    <h3>Park Hours</h3>
+                    <mat-accordion>
 
-                        <mat-list role="list">
-                            <mat-list-item role="listitem">Sunday: {{hours.standardHours.sunday}}</mat-list-item>
-                            <mat-list-item role="listitem">Monday: {{hours.standardHours.monday}}</mat-list-item>
-                            <mat-list-item role="listitem">Tuesday: {{hours.standardHours.tuesday}}</mat-list-item>
-                            <mat-list-item role="listitem">Wednesday: {{hours.standardHours.wednesday}}</mat-list-item>
-                            <mat-list-item role="listitem">Thursday: {{hours.standardHours.thursday}}</mat-list-item>
-                            <mat-list-item role="listitem">Friday: {{hours.standardHours.friday}}</mat-list-item>
-                            <mat-list-item role="listitem">Saturday: {{hours.standardHours.saturday}}</mat-list-item>
-                        </mat-list>
-                    </mat-expansion-panel>
+                        <!--start of expansion field w/ internal list for standard hours-->
+                        <div *ngFor="let hours of park.operatingHours">
+                            <mat-expansion-panel hideToggle>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Standard Hours
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <mat-list role="list">
+                                    <mat-list-item role="listitem">Sunday:
+                                        {{hours.standardHours.sunday}}</mat-list-item>
+                                    <mat-list-item role="listitem">Monday:
+                                        {{hours.standardHours.monday}}</mat-list-item>
+                                    <mat-list-item role="listitem">Tuesday:
+                                        {{hours.standardHours.tuesday}}</mat-list-item>
+                                    <mat-list-item role="listitem">Wednesday:
+                                        {{hours.standardHours.wednesday}}</mat-list-item>
+                                    <mat-list-item role="listitem">Thursday:
+                                        {{hours.standardHours.thursday}}</mat-list-item>
+                                    <mat-list-item role="listitem">Friday:
+                                        {{hours.standardHours.friday}}</mat-list-item>
+                                    <mat-list-item role="listitem">Saturday:
+                                        {{hours.standardHours.saturday}}</mat-list-item>
+                                </mat-list>
+                            </mat-expansion-panel>
+                        </div>
+
+                        <!--start of expansion field w/ internal list for hours of exception-->
+                        <div *ngFor="let hours of park.operatingHours">
+                            <div *ngFor="let exception of hours.exceptions">
+                                <mat-expansion-panel hideToggle>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Exceptions to Standard Hours
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                            Start Date: {{exception.startDate}} - End Date: {{exception.endDate}}
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+                                    <mat-list role="list">
+                                        <mat-list-item role="listitem">Sunday:
+                                            {{exception.exceptionHours.sunday}}</mat-list-item>
+                                        <mat-list-item role="listitem">Monday:
+                                            {{exception.exceptionHours.monday}}</mat-list-item>
+                                        <mat-list-item role="listitem">Tuesday:
+                                            {{exception.exceptionHours.tuesday}}</mat-list-item>
+                                        <mat-list-item role="listitem">Wednesday:
+                                            {{exception.exceptionHours.wednesday}}</mat-list-item>
+                                        <mat-list-item role="listitem">Thursday:
+                                            {{exception.exceptionHours.thursday}}</mat-list-item>
+                                        <mat-list-item role="listitem">Friday:
+                                            {{exception.exceptionHours.friday}}</mat-list-item>
+                                        <mat-list-item role="listitem">Saturday:
+                                            {{exception.exceptionHours.saturday}}</mat-list-item>
+                                    </mat-list>
+                                </mat-expansion-panel>
+                                <p>{{exception.description}}</p>
+                            </div>
+                        </div>
+
+
+                    </mat-accordion>
                 </div>
-
-                <!--start of expansion field w/ internal list for hours of exception-->
-                <div *ngFor="let hours of park.operatingHours">
-                    <div *ngFor="let exception of hours.exceptions">
-                        <mat-expansion-panel hideToggle>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    Exceptions to Standard Hours
-                                </mat-panel-title>
-                                <mat-panel-description>
-                                    Start Date: {{exception.startDate}} - End Date: {{exception.endDate}}
-                                </mat-panel-description>
-                            </mat-expansion-panel-header>
-                            <mat-list role="list">
-                                <mat-list-item role="listitem">Sunday:
-                                    {{exception.exceptionHours.sunday}}</mat-list-item>
-                                <mat-list-item role="listitem">Monday:
-                                    {{exception.exceptionHours.monday}}</mat-list-item>
-                                <mat-list-item role="listitem">Tuesday:
-                                    {{exception.exceptionHours.tuesday}}</mat-list-item>
-                                <mat-list-item role="listitem">Wednesday:
-                                    {{exception.exceptionHours.wednesday}}</mat-list-item>
-                                <mat-list-item role="listitem">Thursday:
-                                    {{exception.exceptionHours.thursday}}</mat-list-item>
-                                <mat-list-item role="listitem">Friday:
-                                    {{exception.exceptionHours.friday}}</mat-list-item>
-                                <mat-list-item role="listitem">Saturday:
-                                    {{exception.exceptionHours.saturday}}</mat-list-item>
-                            </mat-list>
-                        </mat-expansion-panel>
-                        <p>{{exception.description}}</p>
-                    </div>
-                </div>
-
-
-            </mat-accordion>
-        </div>
-    </mat-card-content>
-</mat-card>
+            </mat-card-content>
+        </mat-card>
 
 
     </div>

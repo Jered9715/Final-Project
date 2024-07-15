@@ -1,3 +1,29 @@
+@use '@angular/material' as mat;
+
+//define light theme
+
+
+//https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors - for the palettes
+$lt-primary: mat.define-palette(mat.$teal-palette,500);
+$lt-accent: mat.define-palette(mat.$amber-palette, A200, A100, A400);
+$lt-warn: mat.define-palette(mat.$red-palette);
+
+
+$lt-theme: mat.define-light-theme((
+color:(
+    primary: $lt-primary,
+    accent: $lt-accent,
+    warn: $lt-warn,
+),
+typography: mat.define-typography-config(),
+density:0
+));
+
+
+@include mat.all-component-themes($lt-theme);
+
+
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
@@ -5,3 +31,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+//Background
+

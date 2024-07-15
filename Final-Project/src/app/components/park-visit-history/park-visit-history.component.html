@@ -4,7 +4,7 @@
 
 <div class="park-card-grid" *ngIf="!error">
     <ng-container *ngIf="history.length === 0; else historyItemsExist">
-        <p>You haven't visited any parks yes! Go search to start exploring!</p>
+        <p>You haven't visited any parks yet! Go search to start exploring!</p>
     </ng-container>
     <ng-template #historyItemsExist>
         <mat-card class='park-card' appearance="outlined" *ngFor="let historyItem of history">
@@ -22,8 +22,8 @@
                     {{historyItem.parkNotes}}
                     {{historyItem.dateVisited}}
                 </mat-card-subtitle>
-                <button mat-icon-button color="warn" (click)="removeHistoryItem(historyItem)">
-                    <mat-icon>close</mat-icon>
+                <button button mat-raised-button color="warn" (click)="removeHistoryItem(historyItem)">
+                    DELETE
                 </button>
             </mat-card-footer>
         </mat-card>
@@ -32,4 +32,13 @@
 
 <div *ngIf="error">
     <p>{{ error }}</p>
+</div>
+
+<div>
+    <h2>Park Badges</h2>
+    <div class="park-badges">
+        <ng-container *ngFor="let historyItem of badgeHistory">
+            <img class="park-badge-image" mat-card-image [src]="parks[historyItem].localPhotoPath" alt="Park Badge">
+        </ng-container>
+    </div>
 </div>

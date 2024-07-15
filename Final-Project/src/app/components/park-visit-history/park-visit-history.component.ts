@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule , ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
+import { RouterModule, ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 import { NationalParkService } from '../../services/national-park.service';
 import { ParkVisitHistoryService } from '../../services/park-visit-history.service';
 import { ParkVisitHistory } from '../../interfaces/park-visit-history';
@@ -21,28 +21,30 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 @Component({
   selector: 'app-park-detail',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, RouterLinkActive, MatCardModule,MatButtonModule,MatGridListModule,MatToolbarModule,MatIconModule,MatFormFieldModule,MatInputModule,MatSidenavModule],
+  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, RouterLinkActive, MatCardModule, MatButtonModule, MatGridListModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSidenavModule],
   providers: [NationalParkService, ParkVisitHistoryService],
   templateUrl: './park-visit-history.component.html',
   styleUrl: './park-visit-history.component.scss'
 })
-export class ParkVisitHistoryComponent implements OnInit{
+export class ParkVisitHistoryComponent implements OnInit {
   history: ParkVisitHistory[] = [];
   parks: { [key: string]: Park } = {};
   error: string = '';
+  badgeHistory: string[] = [];
 
-  constructor(private parkVisitHistoryService: ParkVisitHistoryService, 
-    private nationalParkService: NationalParkService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private parkVisitHistoryService: ParkVisitHistoryService,
+    private nationalParkService: NationalParkService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loadVisitHistory();
   }
 
-  loadVisitHistory(): void{
+  loadVisitHistory(): void {
     this.parkVisitHistoryService.getParkVisitHistory().subscribe(
       (history: ParkVisitHistory[]) => {
         this.history = history;
         this.loadParks();
+        this.badgeHistory = [...new Set(this.history.map(x => x.parkCode))]
       },
       (error) => {
         this.error = 'Failed to get park visit history';
@@ -59,6 +61,8 @@ export class ParkVisitHistoryComponent implements OnInit{
           (response: ParkResponse) => {
             if (response.total > 0) {
               this.parks[parkCode] = response.data[0];
+              this.parks[parkCode].localPhotoPath = `assets/park-badges/${parkCode}.jpg`;
+              console.log("local photo:", this.parks[parkCode].localPhotoPath)
             }
           },
           (error: any) => {

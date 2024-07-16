@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { ParkVisitHistory } from '../../interfaces/park-visit-history';
 import { ParkVisitHistoryService } from '../../services/park-visit-history.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,6 +21,8 @@ import { ParkNotesComponent } from '../park-notes/park-notes.component';
 import { WishListItem } from '../../interfaces/wishlist';
 import { WishlistService } from '../../services/wishlist.service';
 import { ParkCodeService } from '../../services/park-code.service';
+import { ChangeDetectorRef } from '@angular/core';
+import { SnackBarComponent } from '../snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-park-list',
@@ -37,15 +40,18 @@ export class ParkListComponent implements OnInit {
   filteredParks: Park[] = [];
   error: string = '';
   query: string = '';
-  sort: string = 'relevanceScore';
+  sort: string = '-relevanceScore';
   showFiller = false;
   parkCode: string = '';
   parkNotes: string = '';
   dateVisited: string = '';
   wishlist: WishListItem[] = [];
+  wishlistSnackBarMessage: string ='Added to Wish-List!!';
+  visitedSnackBarMessage: string ='Added to History';
+  snackBarAction: string='Dismiss';
 
-  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService, private parkCodeService: ParkCodeService) { }
-
+  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService, private parkCodeService: ParkCodeService, private changeDetection: ChangeDetectorRef, private _snackBar: MatSnackBar) { }
+ 
   ngOnInit(): void {
   }
 
@@ -72,11 +78,12 @@ export class ParkListComponent implements OnInit {
         this.parkResponse = data;
         this.error = '';
         this.filterParks();
+        this.changeDetection.detectChanges();
         if (this.filteredParks.length === 0) {
           this.error = `There are no National Parks that match your search of ${this.query}`
         }
         console.log("park data")
-        console.log(this.filteredParks[0])
+        console.log(this.filteredParks)
       },
       (error) => {
         console.error('Error fetching data by search', error);
@@ -114,5 +121,11 @@ export class ParkListComponent implements OnInit {
         }
       );
     }
+
+    openSnackBar(message: string, action: string) {
+      this._snackBar.open(message, action);
+    }
   }
+
+  
 

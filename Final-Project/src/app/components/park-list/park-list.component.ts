@@ -20,6 +20,7 @@ import { ParkNotesComponent } from '../park-notes/park-notes.component';
 import { WishListItem } from '../../interfaces/wishlist';
 import { WishlistService } from '../../services/wishlist.service';
 import { ParkCodeService } from '../../services/park-code.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-park-list',
@@ -37,14 +38,14 @@ export class ParkListComponent implements OnInit {
   filteredParks: Park[] = [];
   error: string = '';
   query: string = '';
-  sort: string = 'relevanceScore';
+  sort: string = '-relevanceScore';
   showFiller = false;
   parkCode: string = '';
   parkNotes: string = '';
   dateVisited: string = '';
   wishlist: WishListItem[] = [];
 
-  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService, private parkCodeService: ParkCodeService) { }
+  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService, private parkCodeService: ParkCodeService, private changeDetection: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -72,11 +73,12 @@ export class ParkListComponent implements OnInit {
         this.parkResponse = data;
         this.error = '';
         this.filterParks();
+        this.changeDetection.detectChanges();
         if (this.filteredParks.length === 0) {
           this.error = `There are no National Parks that match your search of ${this.query}`
         }
         console.log("park data")
-        console.log(this.filteredParks[0])
+        console.log(this.filteredParks)
       },
       (error) => {
         console.error('Error fetching data by search', error);

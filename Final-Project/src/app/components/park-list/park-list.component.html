@@ -16,16 +16,6 @@
         </div>
     </mat-card>
 
-
-    
-    <!-- old search input--
-<input type="text" [(ngModel)]="query" placeholder="Search for parks">
-<button (click)="searchParks()">Search</button>
--->
-
-
-
-    <!-- generates park cards from search-->
     <div class="park-card-grid" *ngIf="filteredParks.length > 0">
         <mat-card class='park-card' appearance="outlined" *ngFor="let park of filteredParks">
             <mat-card-header >
@@ -43,8 +33,6 @@
         </mat-card>
     </div>
 
-
-    <!-- -->
     <div *ngIf="error">
         <p>{{error}}</p>
     </div>

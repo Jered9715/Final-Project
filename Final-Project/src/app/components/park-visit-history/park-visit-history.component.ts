@@ -31,6 +31,9 @@ export class ParkVisitHistoryComponent implements OnInit {
   parks: { [key: string]: Park } = {};
   error: string = '';
   badgeHistory: string[] = [];
+  totalParks: number = 429;
+  visitedParks: number = 0;
+  percentageVisited: number = 0; 
 
   constructor(private parkVisitHistoryService: ParkVisitHistoryService,
     private nationalParkService: NationalParkService, private router: Router, private route: ActivatedRoute) { }
@@ -44,7 +47,9 @@ export class ParkVisitHistoryComponent implements OnInit {
       (history: ParkVisitHistory[]) => {
         this.history = history;
         this.loadParks();
-        this.badgeHistory = [...new Set(this.history.map(x => x.parkCode))]
+        this.badgeHistory = [...new Set(this.history.map(x => x.parkCode))];
+        this.visitedParks = this.history.length;
+        this.percentageVisited = (this.visitedParks / this.totalParks) * 100;
       },
       (error) => {
         this.error = 'Failed to get park visit history';
@@ -79,6 +84,8 @@ export class ParkVisitHistoryComponent implements OnInit {
         const itemToRemove = this.history.indexOf(historyItem);
         if (itemToRemove > -1) {
           this.history.splice(itemToRemove, 1);
+          this.visitedParks--;
+          this.percentageVisited = (this.visitedParks / this.totalParks) * 100;
         }
       },
       (error) => {

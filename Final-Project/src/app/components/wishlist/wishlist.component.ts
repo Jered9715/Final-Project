@@ -82,6 +82,20 @@ export class WishlistComponent implements OnInit {
       }
     );
   }
+  removeWishlistItem(wishlistItems: WishListItem): void {
+    this.wishlistService.deleteWishlistItem(wishlistItems.wishListId).subscribe(
+      () => {
+        const itemToRemove = this.wishlistItems.indexOf(wishlistItems);
+        if (itemToRemove > -1) {
+          this.wishlistItems.splice(itemToRemove, 1);
+        }
+      },
+      (error) => {
+        console.error('Failed to remove wishlist item', error);
+      }
+    );
+
+  }
 
 }
 

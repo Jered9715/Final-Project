@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { ParkVisitHistory } from '../../interfaces/park-visit-history';
 import { ParkVisitHistoryService } from '../../services/park-visit-history.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,7 +21,7 @@ import { ParkNotesComponent } from '../park-notes/park-notes.component';
 import { WishListItem } from '../../interfaces/wishlist';
 import { WishlistService } from '../../services/wishlist.service';
 import { ParkCodeService } from '../../services/park-code.service';
-
+import { SnackBarComponent } from '../snack-bar/snack-bar.component';
 @Component({
   selector: 'app-park-list',
   standalone: true,
@@ -43,9 +44,12 @@ export class ParkListComponent implements OnInit {
   parkNotes: string = '';
   dateVisited: string = '';
   wishlist: WishListItem[] = [];
+  wishlistSnackBarMessage: string ='Added to Wish-List!!';
+  visitedSnackBarMessage: string ='Added to History';
+  snackBarAction: string='Dismiss';
 
-  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService, private parkCodeService: ParkCodeService) { }
-
+  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService, private parkCodeService: ParkCodeService,private _snackBar: MatSnackBar) { }
+ 
   ngOnInit(): void {
   }
 
@@ -114,5 +118,11 @@ export class ParkListComponent implements OnInit {
         }
       );
     }
+
+    openSnackBar(message: string, action: string) {
+      this._snackBar.open(message, action);
+    }
   }
+
+  
 

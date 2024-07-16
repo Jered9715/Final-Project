@@ -21,7 +21,9 @@ import { ParkNotesComponent } from '../park-notes/park-notes.component';
 import { WishListItem } from '../../interfaces/wishlist';
 import { WishlistService } from '../../services/wishlist.service';
 import { ParkCodeService } from '../../services/park-code.service';
+import { ChangeDetectorRef } from '@angular/core';
 import { SnackBarComponent } from '../snack-bar/snack-bar.component';
+
 @Component({
   selector: 'app-park-list',
   standalone: true,
@@ -38,7 +40,7 @@ export class ParkListComponent implements OnInit {
   filteredParks: Park[] = [];
   error: string = '';
   query: string = '';
-  sort: string = 'relevanceScore';
+  sort: string = '-relevanceScore';
   showFiller = false;
   parkCode: string = '';
   parkNotes: string = '';
@@ -48,7 +50,7 @@ export class ParkListComponent implements OnInit {
   visitedSnackBarMessage: string ='Added to History';
   snackBarAction: string='Dismiss';
 
-  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService, private parkCodeService: ParkCodeService,private _snackBar: MatSnackBar) { }
+  constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService, private parkCodeService: ParkCodeService, private changeDetection: ChangeDetectorRef, private _snackBar: MatSnackBar) { }
  
   ngOnInit(): void {
   }
@@ -76,11 +78,12 @@ export class ParkListComponent implements OnInit {
         this.parkResponse = data;
         this.error = '';
         this.filterParks();
+        this.changeDetection.detectChanges();
         if (this.filteredParks.length === 0) {
           this.error = `There are no National Parks that match your search of ${this.query}`
         }
         console.log("park data")
-        console.log(this.filteredParks[0])
+        console.log(this.filteredParks)
       },
       (error) => {
         console.error('Error fetching data by search', error);

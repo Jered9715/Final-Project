@@ -27,7 +27,23 @@
             </mat-card-content>
         </mat-card>
 
-
+        <mat-expansion-panel *ngIf="park.activities && park.activities.length > 0">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Activities
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+            <mat-card>
+                <mat-card-content>
+                    <mat-list role="list">
+                        <mat-list-item role="listitem" *ngFor="let activity of park.activities">
+                            {{ activity.name }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </mat-expansion-panel>
 
         <!--Hours of operation lists card -->
         <mat-card>

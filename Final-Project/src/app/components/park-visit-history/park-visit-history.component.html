@@ -29,13 +29,25 @@
         </mat-card>
     </ng-template>
 </div>
+<br>
+
+<div class="progress-container">
+    <mat-progress-bar mode="determinate" [value]="percentageVisited"></mat-progress-bar>
+    <div class="progress-details">
+            <p> {{ visitedParks}} of {{totalParks}} Visited ({{ percentageVisited | number:'1.0-2' }}%)</p>
+    </div>
+</div>
+
+<br>
 
 <div *ngIf="error">
     <p>{{ error }}</p>
 </div>
 
+<mat-divider class="app-divider"></mat-divider>
+
 <div>
-    <h2>Park Badges</h2>
+    <h1>Park Badges</h1>
     <div class="park-badges">
         <ng-container *ngFor="let historyItem of badgeHistory">
             <img class="park-badge-image" mat-card-image [src]="parks[historyItem].localPhotoPath" alt="Park Badge">

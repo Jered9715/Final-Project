@@ -46,8 +46,7 @@ export class ParkListComponent implements OnInit {
   parkNotes: string = '';
   dateVisited: string = '';
   wishlist: WishListItem[] = [];
-  wishlistSnackBarMessage: string ='Added to Wish-List!!';
-  visitedSnackBarMessage: string ='Added to History';
+  wishlistSnackBarMessage: string ='Added to Wish-List!';
   snackBarAction: string='Dismiss';
 
   constructor(private nationalParkService: NationalParkService, private parkVisitHistoryService: ParkVisitHistoryService, public dialog: MatDialog, private wishlistService: WishlistService, private parkCodeService: ParkCodeService, private changeDetection: ChangeDetectorRef, private _snackBar: MatSnackBar) { }

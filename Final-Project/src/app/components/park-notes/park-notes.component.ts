@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Output, OnInit , EventEmitter} from '@angular/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,6 +13,7 @@ import { ParkListComponent } from '../park-list/park-list.component';
 import { ParkVisitHistoryService } from '../../services/park-visit-history.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ParkCodeService } from '../../services/park-code.service';
+import { EventServiceService } from '../../services/event-service.service';
 
 @Component({
   selector: 'app-park-notes',
@@ -36,6 +37,7 @@ export class ParkNotesComponent implements OnInit {
     private parkVisitHistoryService: ParkVisitHistoryService,
     private dialogRef: MatDialogRef<ParkNotesComponent>,
     private parkCodeService: ParkCodeService,
+    private eventService: EventServiceService
      ){ }
 
   ngOnInit(): void {
@@ -59,6 +61,7 @@ export class ParkNotesComponent implements OnInit {
       this.parkVisitHistoryService.addParkVisitHistory(newParkVisitHistory.parkCode, newParkVisitHistory.parkNotes, newParkVisitHistory.dateVisited).subscribe(
         (response: any) => {
           console.log('Park visit history added: ', response);
+          this.eventService.emitChangeEvent(response);
           this.dialogRef.close(response);
         },
         (error) => {

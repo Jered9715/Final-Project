@@ -32,10 +32,9 @@
 <br>
 
 <div class="progress-container">
-    <div class="progress-bar">
-        <div class="progress" [style.width.%]="percentageVisited">
-            <p> {{ visitedParks}} of {{totalParks}} Visited</p>
-        </div>
+    <mat-progress-bar mode="determinate" [value]="percentageVisited"></mat-progress-bar>
+    <div class="progress-details">
+            <p> {{ visitedParks}} of {{totalParks}} Visited ({{ percentageVisited | number:'1.0-2' }}%)</p>
     </div>
 </div>
 

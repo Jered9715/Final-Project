@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WishlistService } from '../../services/wishlist.service';
 import { WishListItem } from '../../interfaces/wishlist';
-import { RouterModule , ActivatedRoute, Router, RouterLinkActive} from '@angular/router';
+import { RouterModule, ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 import { NationalParkService } from '../../services/national-park.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -17,11 +17,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ParkNotesComponent } from '../park-notes/park-notes.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ParkCodeService } from '../../services/park-code.service';
+
 
 @Component({
   selector: 'app-wishlist',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, RouterLinkActive, MatCardModule,MatButtonModule,MatGridListModule,MatToolbarModule,MatIconModule,MatFormFieldModule,MatInputModule,MatSidenavModule],
+  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, RouterLinkActive, MatCardModule, MatButtonModule, MatGridListModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSidenavModule],
   providers: [WishlistService, NationalParkService],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.scss'
@@ -31,14 +35,14 @@ export class WishlistComponent implements OnInit {
   parks: { [key: string]: Park } = {};
   error: string = '';
 
-  constructor(private wishlistService: WishlistService, private nationalParkService: NationalParkService) {}
-  
+  constructor(private wishlistService: WishlistService, private nationalParkService: NationalParkService, public dialog: MatDialog, private parkCodeService: ParkCodeService) { }
+
 
   ngOnInit(): void {
     this.loadWishlistItem()
   }
 
-  loadWishlistItem(): void{
+  loadWishlistItem(): void {
     this.wishlistService.getWishlistItems().subscribe(
       (wishlist: WishListItem[]) => {
         this.wishlistItems = wishlist;
@@ -70,7 +74,7 @@ export class WishlistComponent implements OnInit {
     });
   }
 
-  loadWishlist(): void{
+  loadWishlist(): void {
     this.wishlistService.getWishlistItems().subscribe(
       (wishlist: WishListItem[]) => {
         this.wishlistItems = this.wishlistItems;
@@ -96,6 +100,18 @@ export class WishlistComponent implements OnInit {
     );
 
   }
+
+  openParkNotesDialog(parkCode: string): void {
+    this.parkCodeService.setParkCode(parkCode);
+    console.log("Park Code: ", parkCode)
+    const dialogRef = this.dialog.open(ParkNotesComponent, {
+      width: '500px'
+    });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+      });
+    }
 
 }
 

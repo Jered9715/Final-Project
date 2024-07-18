@@ -7,8 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ParkResponse, Park } from '../../interfaces/park';
-import { switchMap } from 'rxjs';
-import { map } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -17,11 +15,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { EventServiceService } from '../../services/event-service.service';
+import { Subscription } from 'rxjs';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 @Component({
   selector: 'app-park-detail',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, RouterLinkActive, MatCardModule, MatButtonModule, MatGridListModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSidenavModule],
+  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, RouterLinkActive, MatCardModule, MatButtonModule, MatGridListModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSidenavModule, MatProgressBarModule],
   providers: [NationalParkService, ParkVisitHistoryService],
   templateUrl: './park-visit-history.component.html',
   styleUrl: './park-visit-history.component.scss'
@@ -34,12 +36,17 @@ export class ParkVisitHistoryComponent implements OnInit {
   totalParks: number = 429;
   visitedParks: number = 0;
   percentageVisited: number = 0; 
+  private subscription: Subscription = new Subscription;
 
   constructor(private parkVisitHistoryService: ParkVisitHistoryService,
-    private nationalParkService: NationalParkService, private router: Router, private route: ActivatedRoute) { }
+    private nationalParkService: NationalParkService, private router: Router, private route: ActivatedRoute, private eventService: EventServiceService) { }
 
   ngOnInit(): void {
     this.loadVisitHistory();
+    this.subscription = this.eventService.historyUpdated.subscribe(() => 
+      {
+        this.loadVisitHistory()
+      });
   }
 
   loadVisitHistory(): void {

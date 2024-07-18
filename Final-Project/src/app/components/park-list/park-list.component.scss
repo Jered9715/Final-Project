@@ -1,37 +1,16 @@
-
-
-//for top bar
-.example-spacer {
-  flex: 1 1 auto;
-}
-
-//for toggle button side nav
-
-.example-sidenav-content {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.example-sidenav {
-  padding: 20px;
-}
-
 //for search card
 .search-card {
 margin-top: 50px;
 margin-bottom: 25px;
 margin-left: 50px;
 margin-right: 50px;
-
-
 }
 
 
 
 .search-button {
   align-self:center;
+  margin-bottom: 10px;
 }
 
 
@@ -46,7 +25,13 @@ margin-right: 50px;
 
 .park-card-grid {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 25% 25% 25%;
+  grid-column: 50;
   justify-content: space-evenly;
-  gap: 24px;
+  gap: 10px;
+
+}
+
+.card-button {
+  margin: auto;
 }

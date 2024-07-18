@@ -32,6 +32,7 @@ export class NationalParkService {
     if (sort) {
       params = params.set('sort', sort);
     }
+    console.log("params", params)
     return this.http.get<ParkResponse>(`${this.apiUrl}/parks`, { headers: headers, params: params });
   }
 

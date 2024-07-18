@@ -29,6 +29,16 @@
         </mat-card>
     </ng-template>
 </div>
+<br>
+
+<div class="progress-container">
+    <mat-progress-bar mode="determinate" [value]="percentageVisited"></mat-progress-bar>
+    <div class="progress-details">
+            <p> {{ visitedParks}} of {{totalParks}} Visited ({{ percentageVisited | number:'1.0-2' }}%)</p>
+    </div>
+</div>
+
+<br>
 
 <div *ngIf="error">
     <p>{{ error }}</p>

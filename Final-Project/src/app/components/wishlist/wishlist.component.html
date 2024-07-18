@@ -18,6 +18,7 @@
           <img class="park-image" mat-card-image [src]="parks[wishlistChoice.parkCode].images[0]?.url"
               [alt]="parks[wishlistChoice.parkCode].images[0].altText">
               <mat-card-footer>
+                <button mat-raised-button color="accent" class="card-button" (click)="openParkNotesDialog(wishlistChoice.parkCode)">VISITED</button>
                 <button button mat-raised-button color="warn" (click)="removeWishlistItem(wishlistChoice)">
                   DELETE
               </button>

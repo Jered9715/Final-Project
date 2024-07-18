@@ -18,13 +18,17 @@ import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
-
+import {MatSnackBar} from '@angular/material/snack-bar';
+import { WishListItem } from '../../interfaces/wishlist';
+import { WishlistService } from '../../services/wishlist.service';
 
 @Component({
   selector: 'app-park-detail',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, MapsComponent,MatListModule,MatExpansionModule,MatCardModule,MatIconModule,MatDividerModule,MatButtonModule],
-  providers: [NationalParkService],
+  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, MapsComponent,
+    MatListModule,MatExpansionModule,MatCardModule,MatIconModule,MatDividerModule,MatButtonModule,
+    ],
+  providers: [NationalParkService, WishlistService],
   templateUrl: './park-detail.component.html',
   styleUrl: './park-detail.component.scss'
 })
@@ -36,12 +40,14 @@ export class ParkDetailComponent implements OnInit {
   long= ''
   lat= ''
   mapUrl = ''
+  wishlistSnackBarMessage: string ='Added to Wish-List!';
+  snackBarAction: string='Dismiss';
 
   panelOpenState = false;
 
 
 
-  constructor(private route: ActivatedRoute, private nationalParkService: NationalParkService, public dialog: MatDialog, private parkCodeService: ParkCodeService) { }
+  constructor(private route: ActivatedRoute, private nationalParkService: NationalParkService, public dialog: MatDialog, private parkCodeService: ParkCodeService,private wishlistService: WishlistService,private _snackBar: MatSnackBar) { }
 
 
   ngOnInit(): void {
@@ -78,4 +84,20 @@ export class ParkDetailComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+  addWishlistItem(parkCode: string): void {
+    console.log('Park Code:', this.parkCode);
+
+      this.wishlistService.addWishlistItem(parkCode).subscribe(
+        (response: any) => {
+          console.log('Wishlist Item Added: ', response);
+        },
+        (error) => {
+          console.error('Failed to add to Wishlist: ', error);
+        }
+      );
+    }
+
+    openSnackBar(message: string, action: string) {
+      this._snackBar.open(message, action);}
 }

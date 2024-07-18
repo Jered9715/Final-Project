@@ -1,0 +1,101 @@
+
+
+//for top bar
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  //for toggle button side nav
+  
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .example-sidenav {
+    padding: 20px;
+  }
+  
+  //for search card
+  .search-card {
+  margin-top: 50px;
+  margin-bottom: 25px;
+  margin-left: 50px;
+  margin-right: 50px;
+  
+  
+  }
+  
+
+  
+  .search-button {
+    align-self:center;
+  }
+  
+  
+  //for cards
+  
+  
+  .park-image {
+    width:100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .park-card-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-evenly;
+    gap: 24px;
+  }
+
+  .park-badges {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-evenly;
+    gap: 24px;
+  }
+
+  .park-badge-image {
+    width:100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .progress-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 20px; 
+    background-color: #ddd;
+    border-radius: 4px;
+    position: relative;
+    overflow: visible; 
+}
+
+.progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  line-height: 20px; 
+  text-align: center;
+  background-color: #19976d; 
+  color: black; 
+  display: flex;
+  font-size: 10px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+}
+  .app-divider {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }

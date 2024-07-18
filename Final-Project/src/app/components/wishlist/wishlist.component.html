@@ -1,0 +1,33 @@
+<div>
+  <h1>Your Park Wishlist</h1>
+</div>
+
+<div class="park-card-grid" *ngIf="!error">
+  <ng-container *ngIf="wishlistItems.length === 0; else wishItemsExist">
+      <p>You haven't visited any parks yes! Go search to start exploring!</p>
+  </ng-container>
+  <ng-template #wishItemsExist>
+      <mat-card class='wishlist-card' appearance="outlined" *ngFor="let wishlistChoice of wishlistItems">
+          <mat-card-header>
+              <mat-card-title>{{ parks[wishlistChoice.parkCode]?.name }}</mat-card-title>
+              <mat-card-subtitle>
+                  {{ parks[wishlistChoice.parkCode].addresses[0]?.city }},
+                  {{ parks[wishlistChoice.parkCode].addresses[0]?.stateCode }}
+              </mat-card-subtitle>
+          </mat-card-header>
+          <img class="park-image" mat-card-image [src]="parks[wishlistChoice.parkCode].images[0]?.url"
+              [alt]="parks[wishlistChoice.parkCode].images[0].altText">
+              <mat-card-actions>
+                <button mat-raised-button color="accent" class="card-button" (click)="openParkNotesDialog(wishlistChoice.parkCode)">VISITED</button>
+                <button button mat-raised-button class="card-button" color="warn" (click)="removeWishlistItem(wishlistChoice)">
+                  DELETE
+              </button>
+            </mat-card-actions>
+            <mat-card-footer></mat-card-footer>
+      </mat-card>
+  </ng-template>
+</div>
+
+<div *ngIf="error">
+  <p>{{ error }}</p>
+</div>

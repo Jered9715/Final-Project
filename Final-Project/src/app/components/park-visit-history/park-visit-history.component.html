@@ -1,0 +1,56 @@
+<div>
+    <h1>Parks You've Visited</h1>
+</div>
+
+<div class="park-card-grid" *ngIf="!error">
+    <ng-container *ngIf="history.length === 0; else historyItemsExist">
+        <p>You haven't visited any parks yet! Go search to start exploring!</p>
+    </ng-container>
+    <ng-template #historyItemsExist>
+        <mat-card class='park-card' appearance="outlined" *ngFor="let historyItem of history">
+            <mat-card-header>
+                <mat-card-title>{{ parks[historyItem.parkCode]?.name }}</mat-card-title>
+                <mat-card-subtitle>
+                    {{ parks[historyItem.parkCode].addresses[0]?.city }},
+                    {{ parks[historyItem.parkCode].addresses[0]?.stateCode }}
+                </mat-card-subtitle>
+            </mat-card-header>
+            <img class="park-image" mat-card-image [src]="parks[historyItem.parkCode].images[0]?.url"
+                [alt]="parks[historyItem.parkCode].images[0].altText">
+            <mat-card-footer>
+                <mat-card-subtitle>
+                    {{historyItem.parkNotes}}
+                    {{historyItem.dateVisited}}
+                </mat-card-subtitle>
+                <button button mat-raised-button color="warn" (click)="removeHistoryItem(historyItem)">
+                    DELETE
+                </button>
+            </mat-card-footer>
+        </mat-card>
+    </ng-template>
+</div>
+<br>
+
+<div class="progress-container">
+    <mat-progress-bar mode="determinate" [value]="percentageVisited"></mat-progress-bar>
+    <div class="progress-details">
+            <p> {{ visitedParks}} of {{totalParks}} Visited ({{ percentageVisited | number:'1.0-2' }}%)</p>
+    </div>
+</div>
+
+<br>
+
+<div *ngIf="error">
+    <p>{{ error }}</p>
+</div>
+
+<mat-divider class="app-divider"></mat-divider>
+
+<div>
+    <h1>Park Badges</h1>
+    <div class="park-badges">
+        <ng-container *ngFor="let historyItem of badgeHistory">
+            <img class="park-badge-image" mat-card-image [src]="parks[historyItem].localPhotoPath" alt="Park Badge">
+        </ng-container>
+    </div>
+</div>

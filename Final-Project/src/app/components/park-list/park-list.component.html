@@ -1,1 +1,59 @@
-<p>park-list works!</p>
+    <!-- new search form -->
+    <mat-card class="search-card" color="primary">
+        <mat-card-header>
+            <h2>Start Exploring Today</h2>
+        </mat-card-header>
+        <mat-form-field appearance="outline">
+            <mat-label>Search for a park</mat-label>
+            <input type="text" [(ngModel)]="query" matInput placeholder="State or Name">
+            
+        </mat-form-field>
+
+
+        <!-- new search button -->
+        <div class="search-button">
+            <button mat-raised-button color="accent" (click)="searchParks()">Search</button>
+        </div>
+    </mat-card>
+
+    <div class="park-card-grid" *ngIf="filteredParks.length > 0">
+        <mat-card class='park-card' appearance="outlined" *ngFor="let park of filteredParks">
+            <mat-card-header >
+                <mat-card-title>{{park.name}}</mat-card-title>
+                <mat-card-subtitle>{{park.addresses[0].city}},
+                    {{park.addresses[0].stateCode}}</mat-card-subtitle>
+            </mat-card-header>
+            <img class="park-image" mat-card-image [src]="park.images[0].url" [alt]="park.images[0].altText">
+            <mat-card-actions>
+                <button mat-raised-button color="accent" class="card-button" [routerLink]="['/park-detail', park.parkCode]">DETAILS</button>
+                <button mat-raised-button color="accent" class="card-button" (click)="addWishlistItem(park.parkCode)"(click)="openSnackBar(wishlistSnackBarMessage, snackBarAction)">WISHLIST</button>
+                <button mat-raised-button color="accent" class="card-button" (click)="openParkNotesDialog(park.parkCode)">VISITED</button>
+            </mat-card-actions>
+            <mat-card-footer></mat-card-footer>
+        </mat-card>
+    </div>
+
+    <div *ngIf="error">
+        <p>{{error}}</p>
+    </div>
+
+
+    <!--<div *ngIf="parkResponse">
+    <div *ngFor="let park of parkResponse.data">
+        <p>{{park.name}}</p>
+        <p>{{park.description}}</p>
+    </div>
+    <div *ngIf="error == ''">
+        <p>{{error}}</p>
+    </div>
+</div>-->
+
+    <!--<div *ngIf="filteredParks.length > 0">
+    <div *ngFor="let park of filteredParks">
+        <a [routerLink]="['/park-details', park.id]">
+            <p>{{park.name}}</p>
+        </a>
+        <p>{{park.addresses[0].city}}, {{park.addresses[0].stateCode}}</p>
+        <img class="park-image" [src]="park.images[0].url" [alt]="park.images[0].altText">
+    </div>
+</div>-->

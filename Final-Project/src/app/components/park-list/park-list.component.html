@@ -26,8 +26,8 @@
             <img class="park-image" mat-card-image [src]="park.images[0].url" [alt]="park.images[0].altText">
             <mat-card-actions>
                 <button mat-raised-button color="accent" class="card-button" [routerLink]="['/park-detail', park.parkCode]">DETAILS</button>
-                <button mat-raised-button color="accent" class="card-button" (click)="addWishlistItem(park.parkCode)"(click)="openSnackBar(wishlistSnackBarMessage, snackBarAction)">ADD TO WISHLIST</button>
-                <button mat-raised-button color="accent" class="card-button" (click)="openParkNotesDialog(park.parkCode)"(click)="openSnackBar(visitedSnackBarMessage, snackBarAction)">VISITED</button>
+                <button mat-raised-button color="accent" class="card-button" (click)="addWishlistItem(park.parkCode)"(click)="openSnackBar(wishlistSnackBarMessage, snackBarAction)">WISHLIST</button>
+                <button mat-raised-button color="accent" class="card-button" (click)="openParkNotesDialog(park.parkCode)">VISITED</button>
             </mat-card-actions>
             <mat-card-footer></mat-card-footer>
         </mat-card>

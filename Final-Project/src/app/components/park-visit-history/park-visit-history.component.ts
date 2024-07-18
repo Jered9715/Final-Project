@@ -18,12 +18,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { EventServiceService } from '../../services/event-service.service';
 import { Subscription } from 'rxjs';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
 
 
 @Component({
   selector: 'app-park-detail',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, RouterLinkActive, MatCardModule, MatButtonModule, MatGridListModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSidenavModule, MatProgressBarModule],
+  imports: [RouterModule, FormsModule, CommonModule, HttpClientModule, RouterLinkActive, MatCardModule, MatButtonModule, MatGridListModule, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSidenavModule, MatProgressBarModule, MatDividerModule, MatListModule],
   providers: [NationalParkService, ParkVisitHistoryService],
   templateUrl: './park-visit-history.component.html',
   styleUrl: './park-visit-history.component.scss'

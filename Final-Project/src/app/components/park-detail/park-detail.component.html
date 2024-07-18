@@ -13,8 +13,10 @@
                 <p>{{park.description}}</p>
             </mat-card-content>
             <mat-card-actions>
+                <button mat-raised-button color="accent" class="card-button" (click)="addWishlistItem(park.parkCode)"(click)="openSnackBar(wishlistSnackBarMessage, snackBarAction)">WISHLIST</button>  
                 <button mat-raised-button color="accent" class='visit-button'
                     (click)="openParkNotesDialog(park.parkCode)">VISITED</button>
+                     
             </mat-card-actions>
         </mat-card>
 
@@ -27,24 +29,26 @@
             </mat-card-content>
         </mat-card>
 
-        <mat-expansion-panel *ngIf="park.activities && park.activities.length > 0">
+        <!--Activities-->
+        <mat-card>
+            <mat-card-content>
+        <mat-expansion-panel hideToggle *ngIf="park.activities && park.activities.length > 0">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     Activities
                 </mat-panel-title>
             </mat-expansion-panel-header>
             
-            <mat-card>
-                <mat-card-content>
+
                     <mat-list role="list">
                         <mat-list-item role="listitem" *ngFor="let activity of park.activities">
                             {{ activity.name }}
                         </mat-list-item>
                     </mat-list>
-                </mat-card-content>
-            </mat-card>
-        </mat-expansion-panel>
 
+        </mat-expansion-panel>
+    </mat-card-content>
+</mat-card>
         <!--Hours of operation lists card -->
         <mat-card>
             <mat-card-content>
